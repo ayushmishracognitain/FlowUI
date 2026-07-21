@@ -9,9 +9,11 @@ let package = Package(
         .macOS(.v14)
     ],
     products: [
-        // The schema and decoding layer. UI targets build on top of this.
+        // The umbrella product most apps should import.
+        .library(name: "FlowUI", targets: ["FlowCore", "FlowRender", "FlowWidgets"]),
+        // The schema and decoding layer on its own, useful for tooling and backend tests.
         .library(name: "FlowCore", targets: ["FlowCore"]),
-        // The SwiftUI rendering layer.
+        // The SwiftUI rendering layer without the starter widgets.
         .library(name: "FlowRender", targets: ["FlowRender"])
     ],
     targets: [
@@ -21,6 +23,10 @@ let package = Package(
         .target(
             name: "FlowRender",
             dependencies: ["FlowCore"]
+        ),
+        .target(
+            name: "FlowWidgets",
+            dependencies: ["FlowRender"]
         ),
         .testTarget(
             name: "FlowCoreTests",
