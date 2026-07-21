@@ -1,0 +1,111 @@
+{
+  "page": {
+    "id": "showcase",
+    "header": {
+      "sticky": true,
+      "widgets": [
+        {
+          "type": "title_block",
+          "id": "hero",
+          "layout": {
+            "padding": { "top": 18, "left": 16, "right": 16, "bottom": 18 },
+            "gradient": { "colors": [ { "hex": "#F8CB46" }, { "hex": "#F97316" } ], "angle": 35 }
+          },
+          "data": {
+            "title": { "text": "Gadgets in minutes", "font": { "size": 26, "weight": "heavy" }, "color": "#1C1C1C" },
+            "subtitle": { "text": "Superfast delivery, gradient everything", "color": "#BB1C1C1C" }
+          }
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "sec_gradient_cards",
+        "layout": { "arrangement": "carousel", "item_spacing": 10, "insets": { "top": 14, "left": 16, "right": 16 } },
+        "widgets": [
+          {
+            "type": "title_block",
+            "id": "chip_1",
+            "layout": { "width": 0.6, "padding": { "top": 16, "left": 14, "right": 14, "bottom": 16 }, "corner_radius": 16, "gradient": { "colors": [ { "hex": "#0C831F" }, { "hex": "#34D399" } ], "angle": 45 } },
+            "data": { "title": { "text": "Chargers", "font": { "size": 17, "weight": "bold" }, "color": "#FFFFFF" }, "subtitle": { "text": "From 499", "color": "#CCFFFFFF" } },
+            "actions": { "tap": { "type": "toast", "message": "Chargers tapped" } }
+          },
+          {
+            "type": "title_block",
+            "id": "chip_2",
+            "layout": { "width": 0.6, "padding": { "top": 16, "left": 14, "right": 14, "bottom": 16 }, "corner_radius": 16, "gradient": { "colors": [ { "hex": "#6366F1" }, { "hex": "#EC4899" } ], "angle": 45 } },
+            "data": { "title": { "text": "Audio", "font": { "size": 17, "weight": "bold" }, "color": "#FFFFFF" }, "subtitle": { "text": "From 1,299", "color": "#CCFFFFFF" } },
+            "actions": { "tap": { "type": "toast", "message": "Audio tapped" } }
+          },
+          {
+            "type": "title_block",
+            "id": "chip_3",
+            "layout": { "width": 0.6, "padding": { "top": 16, "left": 14, "right": 14, "bottom": 16 }, "corner_radius": 16, "gradient": { "colors": [ { "hex": "#F43F5E" }, { "hex": "#F97316" } ], "angle": 45 } },
+            "data": { "title": { "text": "Smart home", "font": { "size": 17, "weight": "bold" }, "color": "#FFFFFF" }, "subtitle": { "text": "From 899", "color": "#CCFFFFFF" } },
+            "actions": { "tap": { "type": "toast", "message": "Smart home tapped" } }
+          }
+        ]
+      },
+      {
+        "id": "sec_actions",
+        "layout": { "arrangement": "vertical", "item_spacing": 10, "insets": { "top": 24, "left": 16, "right": 16 } },
+        "header": {
+          "type": "title_block",
+          "id": "actions_title",
+          "layout": { "padding": { "left": 16, "right": 16, "bottom": 6 }, "background": { "hex": "#FFFFFF", "dark_hex": "#000000" } },
+          "data": { "title": { "text": "Every action, from JSON", "font": { "size": 20, "weight": "bold" } }, "subtitle": { "text": "Deeplink navigation, theme toggle, bottom sheet", "color": "#767676" } }
+        },
+        "widgets": [
+          {
+            "type": "button_row",
+            "id": "cta_deeplink",
+            "data": { "buttons": [ { "title": { "text": "Book a delivery slot", "color": "#FFFFFF" }, "bg_color": "#0C831F", "corner_radius": 12, "full_width": true, "icon": { "symbol": "calendar", "size": 15, "color": "#FFFFFF" }, "action": { "type": "deeplink", "url": "flowdemo://page/checkout" } } ] }
+          },
+          {
+            "type": "button_row",
+            "id": "cta_theme",
+            "data": { "buttons": [ { "title": "Toggle dark mode", "style": "outline", "full_width": true, "icon": "moon.stars", "action": { "type": "toggle_theme" } } ] }
+          },
+          {
+            "type": "button_row",
+            "id": "cta_sheet",
+            "data": { "buttons": [ { "title": "Present a bottom sheet", "style": "outline", "full_width": true, "icon": "rectangle.bottomhalf.filled", "action": {
+              "type": "open_bottom_sheet",
+              "sheet": {
+                "id": "gradient_sheet",
+                "config": { "detents": [0.4], "grabber": true, "corner_radius": 28 },
+                "header": {
+                  "widgets": [
+                    { "type": "title_block", "id": "sheet_hero", "layout": { "padding": { "top": 22, "left": 16, "right": 16, "bottom": 14 }, "gradient": { "colors": [ { "hex": "#F8CB46" }, { "hex": "#F97316" } ], "angle": 35 } }, "data": { "title": { "text": "Sheets are pages too", "font": { "size": 20, "weight": "heavy" }, "color": "#1C1C1C" }, "subtitle": { "text": "Same widgets, same JSON, different chrome", "color": "#BB1C1C1C" } } }
+                  ]
+                },
+                "sections": [
+                  { "id": "sheet_body", "widgets": [
+                    { "type": "image_text_card", "id": "sheet_row", "layout": { "margin": { "top": 10, "left": 16, "right": 16 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "title": "Backend controlled detents", "subtitle": { "text": "This one opens at 40 percent", "color": "#767676" } } }
+                  ] }
+                ],
+                "footer": {
+                  "widgets": [
+                    { "type": "button_row", "id": "sheet_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#0C831F", "full_width": true, "action": { "type": "dismiss" } } ] } }
+                  ]
+                }
+              }
+            } } ] }
+          }
+        ]
+      },
+      {
+        "id": "sec_dark_note",
+        "layout": { "insets": { "top": 20, "left": 16, "right": 16, "bottom": 24 } },
+        "widgets": [
+          {
+            "type": "title_block",
+            "id": "dark_note",
+            "layout": { "padding": { "top": 14, "left": 14, "right": 14, "bottom": 14 }, "corner_radius": 12, "background": { "hex": "#F3F4F6", "dark_hex": "#1F2937" }, "border": { "width": 1, "color": { "hex": "#E5E7EB", "dark_hex": "#374151" } } },
+            "data": { "title": { "text": "This card adapts to dark mode", "font": { "size": 15, "weight": "semibold" } }, "subtitle": { "text": "Every color here carries a dark_hex variant. Toggle above and watch.", "color": "#767676" } }
+          }
+        ]
+      }
+    ]
+  }
+}

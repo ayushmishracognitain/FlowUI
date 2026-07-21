@@ -7,11 +7,14 @@ struct HomeView: View {
     @State private var remoteURL = "http://localhost:8080"
 
     var body: some View {
-        NavigationStack {
+        RoutedNavigationStack {
             List {
                 Section("Pages") {
                     NavigationLink("Home feed") {
                         DemoPageScreen(pageID: "home", title: "Home feed")
+                    }
+                    NavigationLink("Gradient showcase") {
+                        DemoPageScreen(pageID: "showcase", title: "Showcase")
                     }
                     NavigationLink("Layouts: carousel, grid, vertical") {
                         DemoPageScreen(pageID: "layouts", title: "Layouts")

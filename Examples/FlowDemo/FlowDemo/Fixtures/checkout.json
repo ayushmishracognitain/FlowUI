@@ -1,0 +1,74 @@
+{
+  "page": {
+    "id": "checkout",
+    "sections": [
+      {
+        "id": "sec_form",
+        "layout": { "arrangement": "vertical", "item_spacing": 12, "insets": { "top": 16, "left": 16, "right": 16 } },
+        "widgets": [
+          {
+            "type": "title_block",
+            "id": "form_title",
+            "data": { "title": { "text": "Schedule your delivery", "font": { "size": 22, "weight": "bold" } }, "subtitle": { "text": "You arrived here through a deeplink action", "color": "#767676" } }
+          },
+          {
+            "type": "date_picker_row",
+            "id": "delivery_date",
+            "layout": { "padding": { "top": 8, "left": 12, "right": 12, "bottom": 8 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
+            "data": { "title": { "text": "Delivery date", "font": { "size": 16, "weight": "semibold" } }, "style": "calendar" },
+            "actions": { "change": { "type": "toast", "message": "Date updated" } }
+          },
+          {
+            "type": "stepper_row",
+            "id": "package_count",
+            "layout": { "padding": { "top": 10, "left": 12, "right": 12, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
+            "data": { "title": { "text": "Packages", "font": { "size": 16, "weight": "semibold" } }, "subtitle": { "text": "How many boxes should we pick up", "color": "#767676" }, "min": 1, "max": 8, "initial": 1 }
+          },
+          {
+            "type": "accordion",
+            "id": "slot_faq",
+            "layout": { "padding": { "top": 14, "left": 14, "right": 14, "bottom": 14 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
+            "data": {
+              "header": { "text": "What happens next?", "font": { "size": 15, "weight": "semibold" } },
+              "items": [
+                { "type": "image_text_card", "id": "faq_row", "data": { "title": { "text": "A courier picks up in your chosen slot", "font": { "size": 14 } }, "subtitle": { "text": "Reschedule any time before pickup", "color": "#767676" } } }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "footer": {
+      "sticky": true,
+      "widgets": [
+        {
+          "type": "button_row",
+          "id": "confirm_cta",
+          "layout": { "padding": { "top": 10, "left": 16, "right": 16, "bottom": 10 } },
+          "data": { "buttons": [ { "title": { "text": "Confirm slot", "color": "#FFFFFF" }, "bg_color": "#0C831F", "corner_radius": 12, "full_width": true, "action": {
+            "type": "open_bottom_sheet",
+            "sheet": {
+              "id": "confirm_sheet",
+              "config": { "detents": [0.35], "grabber": true, "corner_radius": 28 },
+              "header": {
+                "widgets": [
+                  { "type": "title_block", "id": "confirm_hero", "layout": { "padding": { "top": 22, "left": 16, "right": 16, "bottom": 14 }, "gradient": { "colors": [ { "hex": "#0C831F" }, { "hex": "#34D399" } ], "angle": 35 } }, "data": { "title": { "text": "Slot confirmed", "font": { "size": 20, "weight": "heavy" }, "color": "#FFFFFF" }, "subtitle": { "text": "We will see you then", "color": "#CCFFFFFF" } } }
+                ]
+              },
+              "sections": [
+                { "id": "confirm_body", "widgets": [
+                  { "type": "image_text_card", "id": "confirm_row", "layout": { "margin": { "top": 10, "left": 16, "right": 16 } }, "data": { "title": "Your courier will message you", "subtitle": { "text": "Track everything from the orders page", "color": "#767676" } } }
+                ] }
+              ],
+              "footer": {
+                "widgets": [
+                  { "type": "button_row", "id": "confirm_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#0C831F", "full_width": true, "action": { "type": "dismiss" } } ] } }
+                ]
+              }
+            }
+          } } ] }
+        }
+      ]
+    }
+  }
+}

@@ -32,7 +32,7 @@
             "data": {
               "image": { "url": "https://picsum.photos/id/2/800/360", "aspect_ratio": 2.2, "corner_radius": 14, "shimmer": true },
               "title": { "text": "50% off first order", "font": { "size": 22, "weight": "bold" }, "color": "#FFFFFF" },
-              "subtitle": { "text": "Use code WELCOME", "color": "#FFFFFFCC" }
+              "subtitle": { "text": "Use code WELCOME", "color": "#CCFFFFFF" }
             },
             "actions": { "tap": { "type": "deeplink", "url": "flowdemo://offers/welcome" } }
           },
