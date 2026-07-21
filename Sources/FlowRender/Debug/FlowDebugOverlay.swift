@@ -51,7 +51,7 @@ private struct FlowDebugOverlayModifier: ViewModifier {
                         .background(.black.opacity(0.7), in: Circle())
                 }
                 .padding(16)
-                .accessibilityLabel("FlowUI debug console")
+                .accessibilityLabel("Flow-UI debug console")
             }
             .sheet(isPresented: $showPanel) {
                 FlowDebugPanel(store: store, dispatcher: dispatcher, inspecting: $inspecting)
@@ -82,7 +82,7 @@ private struct FlowDebugPanel: View {
                 default: inspector
                 }
             }
-            .navigationTitle("FlowUI Debug")
+            .navigationTitle("Flow-UI Debug")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif

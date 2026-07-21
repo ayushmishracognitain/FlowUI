@@ -21,10 +21,10 @@ public struct PageRequest: Sendable {
     }
 }
 
-/// The host's networking, seen from FlowUI's side.
+/// The host's networking, seen from Flow-UI's side.
 ///
-/// FlowUI ships no HTTP stack on purpose. The host implements this protocol with
-/// whatever client it already has and returns raw response bytes; FlowUI does the
+/// Flow-UI ships no HTTP stack on purpose. The host implements this protocol with
+/// whatever client it already has and returns raw response bytes; Flow-UI does the
 /// decoding. This is the seam that keeps the framework portable.
 public protocol PageLoader: Sendable {
     func loadPage(_ request: PageRequest) async throws -> Data

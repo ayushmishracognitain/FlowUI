@@ -68,7 +68,7 @@ struct HomeView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            .navigationTitle("FlowUI Demo")
+            .navigationTitle("Flow-UI Demo")
         }
     }
 }

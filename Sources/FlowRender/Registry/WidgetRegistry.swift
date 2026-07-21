@@ -9,7 +9,7 @@ public enum UnknownWidgetPolicy: Sendable {
     case placeholder
 }
 
-/// The open registration table at the heart of FlowUI.
+/// The open registration table at the heart of Flow-UI.
 ///
 /// One call per widget type connects three things: the `type` string from the
 /// backend, the `WidgetContent` payload model, and the `WidgetView` that renders

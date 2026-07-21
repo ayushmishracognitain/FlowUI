@@ -1,4 +1,4 @@
-# FlowUI JSON Contract
+# Flow-UI JSON Contract
 
 This is the reference for backend developers. Everything the client renders comes
 from these shapes. All keys are snake_case. Every field not marked required is

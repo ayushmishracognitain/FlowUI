@@ -5,7 +5,7 @@ import FlowCore
 /// fixed footer, with detents, grabber and dismissibility all backend controlled.
 ///
 /// Present it from anything; `FlowPageView` does so automatically for the
-/// `open_bottom_sheet` action. The presenting view's FlowUI environment (registry,
+/// `open_bottom_sheet` action. The presenting view's Flow-UI environment (registry,
 /// theme, relay) carries into the sheet.
 public struct FlowSheetView: View {
     private let model: SheetModel

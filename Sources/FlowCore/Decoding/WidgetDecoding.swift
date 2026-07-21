@@ -38,7 +38,7 @@ public extension CodingUserInfoKey {
     static let flowDiagnostics = CodingUserInfoKey(rawValue: "flow.diagnostics")!
 }
 
-/// Builds a `JSONDecoder` wired for FlowUI decoding.
+/// Builds a `JSONDecoder` wired for Flow-UI decoding.
 public enum FlowDecoder {
     public static func make(
         widgetDecoding: WidgetDecoding? = nil,
