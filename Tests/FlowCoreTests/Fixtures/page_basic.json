@@ -1,0 +1,64 @@
+{
+  "page": {
+    "id": "home",
+    "nav": {
+      "title": { "text": "Home", "font": { "size": 18, "weight": "semibold" } },
+      "bg_color": { "hex": "#FFFFFF", "dark_hex": "#1C1C1E" }
+    },
+    "header": {
+      "sticky": true,
+      "widgets": [
+        {
+          "type": "test_text",
+          "id": "header_title",
+          "data": { "title": "Good morning" }
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "sec_intro",
+        "layout": { "arrangement": "vertical", "item_spacing": 12 },
+        "widgets": [
+          {
+            "type": "test_text",
+            "id": "w_1",
+            "layout": {
+              "margin": { "left": 16, "right": 16, "bottom": 12 },
+              "padding": { "top": 12, "left": 12, "right": 12, "bottom": 12 },
+              "corner_radius": 12,
+              "background": { "hex": "#F5F5F5" }
+            },
+            "data": { "title": "First card" },
+            "actions": { "tap": { "type": "toast", "message": "Tapped the first card" } },
+            "tracking": { "impression_id": "imp_1" }
+          },
+          {
+            "type": "test_text",
+            "id": "w_2",
+            "data": { "title": "Second card" }
+          }
+        ]
+      },
+      {
+        "id": "sec_rail",
+        "layout": { "arrangement": "carousel", "item_spacing": 8, "insets": { "left": 16, "right": 16 } },
+        "widgets": [
+          { "type": "test_text", "id": "c_1", "layout": { "width": 0.75 }, "data": { "title": "Card A" } },
+          { "type": "test_text", "id": "c_2", "layout": { "width": "0.75" }, "data": { "title": "Card B" } }
+        ]
+      }
+    ],
+    "footer": {
+      "sticky": true,
+      "widgets": [
+        { "type": "test_text", "id": "footer_cta", "data": { "title": "Continue" } }
+      ]
+    },
+    "pagination": {
+      "has_more": true,
+      "postback": { "cursor": "abc123", "offset": 20 }
+    },
+    "refresh": { "pull_to_refresh": true }
+  }
+}

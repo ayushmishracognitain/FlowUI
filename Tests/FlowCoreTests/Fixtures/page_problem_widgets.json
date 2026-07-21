@@ -1,0 +1,17 @@
+{
+  "page": {
+    "id": "problem_page",
+    "sections": [
+      {
+        "id": "sec_1",
+        "widgets": [
+          { "type": "test_text", "id": "good_1", "data": { "title": "I decode fine" } },
+          { "type": "mystery_widget", "id": "unknown_1", "data": { "anything": true } },
+          { "type": "test_text", "id": "broken_1", "data": { "not_title": "missing required key" } },
+          { "id": "no_type_at_all", "data": { "title": "I have no type key" } },
+          { "type": "test_text", "id": "good_2", "data": { "title": "I also decode fine" } }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "sheet": {
+    "id": "confirm_sheet",
+    "config": { "detents": ["medium", 0.9], "grabber": true, "dismissible": true, "corner_radius": 24 },
+    "header": {
+      "widgets": [
+        { "type": "test_text", "id": "sheet_title", "data": { "title": "Confirm order" } }
+      ]
+    },
+    "sections": [
+      {
+        "id": "sheet_body",
+        "widgets": [
+          { "type": "test_text", "id": "line_1", "data": { "title": "1 x iPhone 16 Pro" } },
+          { "type": "test_text", "id": "line_2", "data": { "title": "1 x Clear Case" } }
+        ]
+      }
+    ],
+    "footer": {
+      "widgets": [
+        { "type": "test_text", "id": "sheet_cta", "data": { "title": "Place order" } }
+      ]
+    }
+  }
+}

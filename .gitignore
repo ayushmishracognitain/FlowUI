@@ -1,0 +1,12 @@
+# Xcode and SwiftPM
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# macOS
+.DS_Store
+
+# Local working context for editors and AI tooling, never committed
+AGENTS.md
