@@ -10,11 +10,17 @@ let package = Package(
     ],
     products: [
         // The schema and decoding layer. UI targets build on top of this.
-        .library(name: "FlowCore", targets: ["FlowCore"])
+        .library(name: "FlowCore", targets: ["FlowCore"]),
+        // The SwiftUI rendering layer.
+        .library(name: "FlowRender", targets: ["FlowRender"])
     ],
     targets: [
         .target(
             name: "FlowCore"
+        ),
+        .target(
+            name: "FlowRender",
+            dependencies: ["FlowCore"]
         ),
         .testTarget(
             name: "FlowCoreTests",
