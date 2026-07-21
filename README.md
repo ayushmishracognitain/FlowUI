@@ -1,7 +1,7 @@
-# FlowUI
+# Flow-UI
 
 A server driven UI framework for SwiftUI. The backend describes screens as JSON
-(pages, sections, widgets); FlowUI decodes, lays out and renders them, routes
+(pages, sections, widgets); Flow-UI decodes, lays out and renders them, routes
 every interaction, and stays open for any widget your app needs to add.
 
 - **iOS 17+ / macOS 14+, pure SwiftUI, zero dependencies.** No networking stack,

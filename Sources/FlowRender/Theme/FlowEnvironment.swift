@@ -24,12 +24,12 @@ public extension EnvironmentValues {
 }
 
 public extension View {
-    /// Installs a theme for every FlowUI view below this point.
+    /// Installs a theme for every Flow-UI view below this point.
     func flowTheme(_ theme: any ThemeProvider) -> some View {
         environment(\.flowTheme, theme)
     }
 
-    /// Installs an image loader for every FlowUI view below this point.
+    /// Installs an image loader for every Flow-UI view below this point.
     func flowImageLoader(_ loader: any FlowImageLoader) -> some View {
         environment(\.flowImageLoader, loader)
     }
