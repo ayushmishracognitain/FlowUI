@@ -37,6 +37,7 @@ public struct WidgetRowView: View {
                 view
                     .widgetLayout(widget.layout)
                     .modifier(EnvelopeGestures(widget: widget, context: context))
+                    .modifier(LayoutInspection(widget: widget))
             }
         }
     }
@@ -102,5 +103,29 @@ private extension View {
         } else {
             self
         }
+    }
+}
+
+/// Draws the widget's bounds, type and id when the debug layout inspector is on.
+private struct LayoutInspection: ViewModifier {
+    let widget: AnyWidget
+    @Environment(\.flowLayoutInspection) private var inspecting
+
+    func body(content: Content) -> some View {
+        content
+            .overlay {
+                if inspecting {
+                    Rectangle()
+                        .strokeBorder(Color.blue.opacity(0.7), lineWidth: 1)
+                        .overlay(alignment: .topLeading) {
+                            Text("\(widget.type) · \(widget.id)")
+                                .font(.system(size: 8).monospaced())
+                                .padding(2)
+                                .background(Color.blue.opacity(0.85))
+                                .foregroundStyle(.white)
+                        }
+                        .allowsHitTesting(false)
+                }
+            }
     }
 }

@@ -23,15 +23,18 @@ public struct FlowPageView<LoadingView: View>: View {
 
     /// Creates a page with a custom loading view. Pass a preconfigured dispatcher
     /// to add host handlers (deeplinks, custom action types); omitting it uses the
-    /// built in handlers alone.
+    /// built in handlers alone. Pass a presenter to observe dismissal and drive
+    /// presentation from the host side.
     public init(
         store: PageStore,
         dispatcher: ActionDispatcher? = nil,
+        presenter: FlowPresenter? = nil,
         @ViewBuilder loadingView: () -> LoadingView
     ) {
         self.store = store
         self.loadingView = loadingView()
         _dispatcher = State(initialValue: dispatcher ?? ActionDispatcher())
+        _presenter = State(initialValue: presenter ?? FlowPresenter())
     }
 
     public var body: some View {
@@ -155,8 +158,8 @@ public struct FlowPageView<LoadingView: View>: View {
 
 public extension FlowPageView where LoadingView == DefaultPageSkeleton {
     /// Creates a page with the default shimmering skeleton as its loading view.
-    init(store: PageStore, dispatcher: ActionDispatcher? = nil) {
-        self.init(store: store, dispatcher: dispatcher) { DefaultPageSkeleton() }
+    init(store: PageStore, dispatcher: ActionDispatcher? = nil, presenter: FlowPresenter? = nil) {
+        self.init(store: store, dispatcher: dispatcher, presenter: presenter) { DefaultPageSkeleton() }
     }
 }
 

@@ -1,0 +1,18 @@
+{
+  "page": {
+    "id": "feed",
+    "sections": [
+      {
+        "id": "feed_page_2",
+        "layout": { "item_spacing": 8, "insets": { "top": 8, "left": 16, "right": 16, "bottom": 24 } },
+        "widgets": [
+          { "type": "image_text_card", "id": "f7", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#EFF6FF", "dark_hex": "#1E3A5F" } }, "data": { "image": { "url": "https://picsum.photos/id/7/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 7", "subtitle": { "text": "Fetched via the postback cursor", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f8", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#EFF6FF", "dark_hex": "#1E3A5F" } }, "data": { "image": { "url": "https://picsum.photos/id/48/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 8", "subtitle": { "text": "Fetched via the postback cursor", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f9", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#EFF6FF", "dark_hex": "#1E3A5F" } }, "data": { "image": { "url": "https://picsum.photos/id/60/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 9", "subtitle": { "text": "Fetched via the postback cursor", "color": "#767676" } } },
+          { "type": "title_block", "id": "feed_end", "layout": { "padding": { "top": 16 } }, "data": { "title": { "text": "You are all caught up", "alignment": "center", "color": "#767676", "font": { "size": 14 } } } }
+        ]
+      }
+    ],
+    "pagination": { "has_more": false }
+  }
+}

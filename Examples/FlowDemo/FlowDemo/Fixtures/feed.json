@@ -1,0 +1,20 @@
+{
+  "page": {
+    "id": "feed",
+    "sections": [
+      {
+        "id": "feed_page_1",
+        "layout": { "item_spacing": 8, "insets": { "top": 16, "left": 16, "right": 16 } },
+        "widgets": [
+          { "type": "image_text_card", "id": "f1", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/0/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 1", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f2", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/1/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 2", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f3", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/3/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 3", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f4", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/4/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 4", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f5", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/5/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 5", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "f6", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "image": { "url": "https://picsum.photos/id/6/144", "aspect_ratio": 1, "corner_radius": 10 }, "title": "Feed item 6", "subtitle": { "text": "Page one of the feed", "color": "#767676" } } }
+        ]
+      }
+    ],
+    "pagination": { "has_more": true, "postback": { "next_page": 2 } }
+  }
+}

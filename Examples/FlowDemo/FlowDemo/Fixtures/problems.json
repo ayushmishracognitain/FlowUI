@@ -1,0 +1,19 @@
+{
+  "page": {
+    "id": "problems",
+    "sections": [
+      {
+        "id": "sec_problems",
+        "layout": { "item_spacing": 8, "insets": { "top": 16, "left": 0, "right": 0 } },
+        "widgets": [
+          { "type": "title_block", "id": "intro", "layout": { "padding": { "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "A page that refuses to die", "font": { "size": 20, "weight": "bold" } }, "subtitle": { "text": "Three of the five widgets below are broken. Open the debug console to see exactly why.", "color": "#767676" } } },
+          { "type": "image_text_card", "id": "healthy_1", "layout": { "margin": { "left": 16, "right": 16 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F0FDF4", "dark_hex": "#14532D" } }, "data": { "title": "I decode fine" } },
+          { "type": "hologram_projector", "id": "unknown_1", "data": { "beam_strength": 11 } },
+          { "type": "image_text_card", "id": "broken_1", "data": { "not_title": "the required title key is missing" } },
+          { "id": "typeless", "data": { "title": "I have no type key at all" } },
+          { "type": "image_text_card", "id": "healthy_2", "layout": { "margin": { "left": 16, "right": 16 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F0FDF4", "dark_hex": "#14532D" } }, "data": { "title": "I also decode fine" } }
+        ]
+      }
+    ]
+  }
+}

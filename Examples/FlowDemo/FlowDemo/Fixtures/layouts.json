@@ -1,0 +1,58 @@
+{
+  "page": {
+    "id": "layouts",
+    "sections": [
+      {
+        "id": "sec_carousel_title",
+        "layout": { "insets": { "top": 16 } },
+        "widgets": [
+          { "type": "title_block", "id": "t1", "layout": { "padding": { "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "Carousel, peeking cards", "font": { "size": 18, "weight": "bold" } }, "subtitle": { "text": "width: 0.75, view aligned snapping", "color": "#767676" } } }
+        ]
+      },
+      {
+        "id": "sec_carousel",
+        "layout": { "arrangement": "carousel", "item_spacing": 10, "insets": { "left": 16, "right": 16 } },
+        "widgets": [
+          { "type": "banner", "id": "c1", "layout": { "width": 0.75 }, "data": { "image": { "url": "https://picsum.photos/id/0/700/400", "aspect_ratio": 1.8, "corner_radius": 12, "shimmer": true } } },
+          { "type": "banner", "id": "c2", "layout": { "width": 0.75 }, "data": { "image": { "url": "https://picsum.photos/id/48/700/400", "aspect_ratio": 1.8, "corner_radius": 12, "shimmer": true } } },
+          { "type": "banner", "id": "c3", "layout": { "width": 0.75 }, "data": { "image": { "url": "https://picsum.photos/id/180/700/400", "aspect_ratio": 1.8, "corner_radius": 12, "shimmer": true } } }
+        ]
+      },
+      {
+        "id": "sec_grid_title",
+        "layout": { "insets": { "top": 24 } },
+        "widgets": [
+          { "type": "title_block", "id": "t2", "layout": { "padding": { "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "Grid, three columns", "font": { "size": 18, "weight": "bold" } } } }
+        ]
+      },
+      {
+        "id": "sec_grid",
+        "layout": { "arrangement": "grid", "columns": 3, "item_spacing": 10, "insets": { "left": 16, "right": 16 } },
+        "widgets": [
+          { "type": "banner", "id": "g1", "data": { "image": { "url": "https://picsum.photos/id/1/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } },
+          { "type": "banner", "id": "g2", "data": { "image": { "url": "https://picsum.photos/id/3/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } },
+          { "type": "banner", "id": "g3", "data": { "image": { "url": "https://picsum.photos/id/4/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } },
+          { "type": "banner", "id": "g4", "data": { "image": { "url": "https://picsum.photos/id/5/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } },
+          { "type": "banner", "id": "g5", "data": { "image": { "url": "https://picsum.photos/id/6/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } },
+          { "type": "banner", "id": "g6", "data": { "image": { "url": "https://picsum.photos/id/7/300", "aspect_ratio": 1, "corner_radius": 10, "shimmer": true } } }
+        ]
+      },
+      {
+        "id": "sec_vertical_title",
+        "layout": { "insets": { "top": 24 } },
+        "widgets": [
+          { "type": "title_block", "id": "t3", "layout": { "padding": { "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "Vertical with spacing", "font": { "size": 18, "weight": "bold" } } } }
+        ]
+      },
+      {
+        "id": "sec_vertical",
+        "layout": { "arrangement": "vertical", "item_spacing": 12, "insets": { "left": 16, "right": 16, "bottom": 24 } },
+        "widgets": [
+          { "type": "image_text_card", "id": "v1", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "title": "Row one" } },
+          { "type": "image_text_card", "id": "v2", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "title": "Row two" } },
+          { "type": "image_text_card", "id": "v3", "layout": { "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } }, "data": { "title": "Row three" } }
+        ]
+      }
+    ]
+  }
+}
