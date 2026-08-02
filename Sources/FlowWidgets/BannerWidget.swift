@@ -78,7 +78,11 @@ public struct BannerWidget: WidgetView, WidgetSkeletonProviding {
     BannerWidget(
         content: BannerContent(
             image: ImageData(url: "https://picsum.photos/800/360", aspectRatio: 2.2, cornerRadius: CornerRadiusData(uniform: 14)),
-            title: TextData(text: "50% off first order", font: FontData(size: 22, weight: "bold"), color: ColorData(hex: "#FFFFFF")),
+            title: TextData(
+                text: "50% off first order",
+                font: FontData(size: 22, weight: "bold"),
+                color: ColorData(hex: "#FFFFFF")
+            ),
             subtitle: TextData(text: "Use code WELCOME", color: ColorData(hex: "#FFFFFFCC"))
         ),
         context: .inert()

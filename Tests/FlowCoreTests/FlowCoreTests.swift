@@ -10,7 +10,10 @@ private struct TestTextContent: WidgetContent, Hashable {
 /// A tiny registry standing in for FlowRender's real one, so FlowCore decoding is
 /// testable without SwiftUI.
 private struct TestRegistry: WidgetDecoding {
-    func decodeContent(type: String, from container: KeyedDecodingContainer<WidgetCodingKeys>) throws -> (any WidgetContent)? {
+    func decodeContent(
+        type: String,
+        from container: KeyedDecodingContainer<WidgetCodingKeys>
+    ) throws -> (any WidgetContent)? {
         guard type == TestTextContent.widgetType else { return nil }
         return try container.decode(TestTextContent.self, forKey: .data)
     }
@@ -33,7 +36,7 @@ final class FlowCoreTests: XCTestCase {
     // MARK: - JSONValue
 
     func testJSONValueRoundTrip() throws {
-        let json = #"{"a": 1, "b": "two", "c": [true, null], "d": {"nested": 2.5}}"#.data(using: .utf8)!
+        let json = Data(#"{"a": 1, "b": "two", "c": [true, null], "d": {"nested": 2.5}}"#.utf8)
         let value = try JSONDecoder().decode(JSONValue.self, from: json)
         XCTAssertEqual(value["a"]?.intValue, 1)
         XCTAssertEqual(value["b"]?.stringValue, "two")
@@ -49,22 +52,22 @@ final class FlowCoreTests: XCTestCase {
     // MARK: - Atoms
 
     func testColorAcceptsBareHexString() throws {
-        let color = try JSONDecoder().decode(ColorData.self, from: "\"#FF5722\"".data(using: .utf8)!)
+        let color = try JSONDecoder().decode(ColorData.self, from: Data("\"#FF5722\"".utf8))
         XCTAssertEqual(color.hex, "#FF5722")
     }
 
     func testTextAcceptsBareString() throws {
-        let text = try JSONDecoder().decode(TextData.self, from: #""Hello""#.data(using: .utf8)!)
+        let text = try JSONDecoder().decode(TextData.self, from: Data(#""Hello""#.utf8))
         XCTAssertEqual(text.text, "Hello")
     }
 
     func testCornerRadiusUniformShorthand() throws {
-        let uniform = try JSONDecoder().decode(CornerRadiusData.self, from: "12".data(using: .utf8)!)
+        let uniform = try JSONDecoder().decode(CornerRadiusData.self, from: Data("12".utf8))
         XCTAssertEqual(uniform.uniformValue, 12)
 
         let perCorner = try JSONDecoder().decode(
             CornerRadiusData.self,
-            from: #"{"top_left": 8, "top_right": 8}"#.data(using: .utf8)!
+            from: Data(#"{"top_left": 8, "top_right": 8}"#.utf8)
         )
         XCTAssertEqual(perCorner.topLeft, 8)
         XCTAssertEqual(perCorner.bottomLeft, 0)
@@ -73,10 +76,10 @@ final class FlowCoreTests: XCTestCase {
 
     func testWidgetWidthParsing() throws {
         let decoder = JSONDecoder()
-        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: #""fill""#.data(using: .utf8)!), .fill)
-        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: #""hug""#.data(using: .utf8)!), .hug)
-        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: "0.75".data(using: .utf8)!), .fraction(0.75))
-        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: #""0.5""#.data(using: .utf8)!), .fraction(0.5))
+        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: Data(#""fill""#.utf8)), .fill)
+        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: Data(#""hug""#.utf8)), .hug)
+        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: Data("0.75".utf8)), .fraction(0.75))
+        XCTAssertEqual(try decoder.decode(WidgetWidth.self, from: Data(#""0.5""#.utf8)), .fraction(0.5))
     }
 
     // MARK: - Page decoding
@@ -109,7 +112,7 @@ final class FlowCoreTests: XCTestCase {
     }
 
     func testUnknownArrangementFallsBackToVertical() throws {
-        let json = #"{"arrangement": "hexagon_spiral"}"#.data(using: .utf8)!
+        let json = Data(#"{"arrangement": "hexagon_spiral"}"#.utf8)
         let layout = try JSONDecoder().decode(SectionLayout.self, from: json)
         XCTAssertEqual(layout.arrangement, .vertical)
     }
@@ -136,7 +139,10 @@ final class FlowCoreTests: XCTestCase {
         XCTAssertTrue(kinds.contains(.droppedElement))
 
         let malformed = try XCTUnwrap(widgets[2].content as? MalformedWidgetContent)
-        XCTAssertTrue(malformed.message.contains("title"), "Error should name the missing key, got: \(malformed.message)")
+        XCTAssertTrue(
+            malformed.message.contains("title"),
+            "Error should name the missing key, got: \(malformed.message)"
+        )
     }
 
     func testDecodingWithoutRegistryProducesUnknownContent() throws {
@@ -165,7 +171,7 @@ final class FlowCoreTests: XCTestCase {
         struct ToastPayload: Decodable {
             let message: String
         }
-        let json = #"{"type": "toast", "message": "Saved"}"#.data(using: .utf8)!
+        let json = Data(#"{"type": "toast", "message": "Saved"}"#.utf8)
         let action = try JSONDecoder().decode(ActionData.self, from: json)
         XCTAssertEqual(action.type, "toast")
         XCTAssertEqual(try action.payload(ToastPayload.self).message, "Saved")

@@ -28,7 +28,10 @@ public enum WidgetCodingKeys: String, CodingKey {
 public protocol WidgetDecoding {
     /// Returns the decoded payload for `type`, or `nil` when the type is not registered.
     /// Throws when the type is known but its payload fails to decode.
-    func decodeContent(type: String, from container: KeyedDecodingContainer<WidgetCodingKeys>) throws -> (any WidgetContent)?
+    func decodeContent(
+        type: String,
+        from container: KeyedDecodingContainer<WidgetCodingKeys>
+    ) throws -> (any WidgetContent)?
 }
 
 public extension CodingUserInfoKey {

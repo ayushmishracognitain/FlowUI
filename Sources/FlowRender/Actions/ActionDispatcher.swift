@@ -83,10 +83,9 @@ public final class ActionDispatcher {
                 }
             )
             for handler in handlers.reversed() {
-                if await handler.handle(action, context: context) {
-                    record(action, context: context, handledBy: String(describing: type(of: handler)))
-                    return
-                }
+                guard await handler.handle(action, context: context) else { continue }
+                record(action, context: context, handledBy: String(describing: type(of: handler)))
+                return
             }
             record(action, context: context, handledBy: nil)
         }

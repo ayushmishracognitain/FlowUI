@@ -43,7 +43,11 @@ private struct DashedLine: Shape {
     VStack(spacing: 20) {
         FlowSeparator()
         FlowSeparator(SeparatorData(style: "dashed", color: ColorData(hex: "#B5B5B5"), thickness: 1))
-        FlowSeparator(SeparatorData(color: ColorData(hex: "#E23744"), thickness: 3, insets: EdgeInsetsData(left: 40, right: 40)))
+        FlowSeparator(SeparatorData(
+            color: ColorData(hex: "#E23744"),
+            thickness: 3,
+            insets: EdgeInsetsData(left: 40, right: 40)
+        ))
     }
     .padding()
 }

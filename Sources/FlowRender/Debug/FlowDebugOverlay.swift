@@ -152,7 +152,10 @@ private struct FlowDebugPanel: View {
     private var inspector: some View {
         Form {
             Toggle("Outline widgets", isOn: $inspecting)
-            Text("Outlines every widget with its type and id so you can match what you see to the JSON that produced it.")
+            Text(
+                "Outlines every widget with its type and id so you can match "
+                    + "what you see to the JSON that produced it."
+            )
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

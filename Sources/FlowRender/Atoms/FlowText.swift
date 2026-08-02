@@ -44,7 +44,8 @@ public struct FlowText: View {
             font: FontData(size: 22, weight: "semibold")
         ))
         FlowText(TextData(
-            text: "Colored, centered, two line maximum. This line is intentionally long enough to wrap and then truncate somewhere sensible.",
+            text: "Colored, centered, two line maximum. This line is intentionally long "
+                + "enough to wrap and then truncate somewhere sensible.",
             font: FontData(size: 14),
             color: ColorData(hex: "#E23744"),
             alignment: "center",

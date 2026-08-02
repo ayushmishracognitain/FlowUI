@@ -1,0 +1,41 @@
+excluded:
+  - .build
+  - .swiftpm
+  - docs-site
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+
+line_length:
+  warning: 120
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+
+identifier_name:
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 50
+    error: 60
+  excluded:
+    - id
+    - x
+    - y
+    - dx
+    - dy
+
+# Keep useful style rules enabled (defaults): for_where, trailing_whitespace, etc.
+
+
+type_body_length:
+  warning: 300
+  error: 400
+
+file_length:
+  warning: 500
+  error: 800
+
+reporter: "xcode"

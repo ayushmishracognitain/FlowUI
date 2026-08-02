@@ -37,7 +37,12 @@ public struct SeparatorWidget: WidgetView {
     VStack(spacing: 24) {
         SeparatorWidget(content: SeparatorContent(), context: .inert())
         SeparatorWidget(
-            content: SeparatorContent(separator: SeparatorData(style: "dashed", insets: EdgeInsetsData(left: 16, right: 16))),
+            content: SeparatorContent(
+                separator: SeparatorData(
+                    style: "dashed",
+                    insets: EdgeInsetsData(left: 16, right: 16)
+                )
+            ),
             context: .inert()
         )
     }

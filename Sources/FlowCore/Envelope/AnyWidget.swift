@@ -45,7 +45,10 @@ public struct AnyWidget: Identifiable, Decodable, Sendable {
 
         let diagnostics = decoder.userInfo[.flowDiagnostics] as? DecodeDiagnostics
         guard let decoding = decoder.userInfo[.flowWidgetDecoding] as? WidgetDecoding else {
-            content = UnknownWidgetContent(type: type, data: try? container.decodeIfPresent(JSONValue.self, forKey: .data))
+            content = UnknownWidgetContent(
+                type: type,
+                data: try? container.decodeIfPresent(JSONValue.self, forKey: .data)
+            )
             return
         }
         do {
@@ -58,7 +61,10 @@ public struct AnyWidget: Identifiable, Decodable, Sendable {
                     codingPath: container.codingPath,
                     message: "No widget registered for type '\(type)'"
                 )
-                content = UnknownWidgetContent(type: type, data: try? container.decodeIfPresent(JSONValue.self, forKey: .data))
+                content = UnknownWidgetContent(
+                type: type,
+                data: try? container.decodeIfPresent(JSONValue.self, forKey: .data)
+            )
             }
         } catch {
             let message = describeDecodingError(error)

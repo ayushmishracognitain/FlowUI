@@ -60,7 +60,11 @@ struct OrderCardWidget: WidgetView {
         content: OrderCardContent(
             orderNumber: TextData(text: "Order #1042", font: FontData(size: 16, weight: "semibold")),
             status: TagData(
-                text: TextData(text: "SHIPPED", font: FontData(size: 10, weight: "bold"), color: ColorData(hex: "#B7791F")),
+                text: TextData(
+                    text: "SHIPPED",
+                    font: FontData(size: 10, weight: "bold"),
+                    color: ColorData(hex: "#B7791F")
+                ),
                 backgroundColor: ColorData(hex: "#FEF3C7")
             ),
             items: [TextData(text: "2 x AirPods Pro 2"), TextData(text: "1 x USB C Cable")],

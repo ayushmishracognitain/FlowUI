@@ -34,7 +34,10 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Remote mode")
                             .font(.subheadline.weight(.semibold))
-                        Text("Serve JSON from any URL, for example: python3 -m http.server 8080 in a folder with home.json. Edit the file, pull to refresh, no rebuild.")
+                        Text(
+                            "Serve JSON from any URL, for example: python3 -m http.server 8080 "
+                                + "in a folder with home.json. Edit the file, pull to refresh, no rebuild."
+                        )
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         TextField("Base URL", text: $remoteURL)

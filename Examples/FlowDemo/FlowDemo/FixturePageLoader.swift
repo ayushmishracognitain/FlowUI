@@ -50,7 +50,13 @@ struct FixturePageLoader: PageLoader {
                   "widget": {
                     "type": "image_text_card",
                     "id": "\(widgetID)",
-                    "layout": { "margin": { "top": 4, "left": 16, "right": 16, "bottom": 4 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#FFF7E6", "dark_hex": "#3A2E14" }, "border": { "width": 1, "color": "#F5A623" } },
+                    "layout": {
+                      "margin": { "top": 4, "left": 16, "right": 16, "bottom": 4 },
+                      "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 },
+                      "corner_radius": 12,
+                      "background": { "hex": "#FFF7E6", "dark_hex": "#3A2E14" },
+                      "border": { "width": 1, "color": "#F5A623" }
+                    },
                     "data": {
                       "image": { "url": "https://picsum.photos/id/9/144", "aspect_ratio": 1, "corner_radius": 10 },
                       "title": { "text": "AirPods Pro 2", "font": { "size": 16, "weight": "semibold" } },

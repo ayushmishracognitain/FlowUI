@@ -23,7 +23,10 @@ public struct ActionResponse: Decodable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        mutations = try container.decodeIfPresent(LossyArray<MutationInstruction>.self, forKey: .mutations)?.elements ?? []
+        mutations = try container.decodeIfPresent(
+            LossyArray<MutationInstruction>.self,
+            forKey: .mutations
+        )?.elements ?? []
         toast = try container.decodeIfPresent(ToastInstruction.self, forKey: .toast)
     }
 }
