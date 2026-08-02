@@ -40,6 +40,7 @@ public struct ToastInstruction: Decodable, Sendable {
 public enum MutationInstruction: Decodable, Sendable {
     case replacePage(PageModel)
     case appendSections([SectionModel])
+    case prependSections([SectionModel])
     case replaceWidget(id: String, widget: AnyWidget)
     case removeWidget(id: String)
 
@@ -59,6 +60,8 @@ public enum MutationInstruction: Decodable, Sendable {
             self = .replacePage(try container.decode(PageModel.self, forKey: .page))
         case "append_sections":
             self = .appendSections(try container.decode(LossyArray<SectionModel>.self, forKey: .sections).elements)
+        case "prepend_sections":
+            self = .prependSections(try container.decode(LossyArray<SectionModel>.self, forKey: .sections).elements)
         case "replace_widget":
             self = .replaceWidget(
                 id: try container.decode(String.self, forKey: .id),
@@ -79,6 +82,7 @@ public enum MutationInstruction: Decodable, Sendable {
         switch self {
         case .replacePage(let page): .replacePage(page)
         case .appendSections(let sections): .appendSections(sections)
+        case .prependSections(let sections): .prependSections(sections)
         case .replaceWidget(let id, let widget): .replaceWidget(id: id, with: widget)
         case .removeWidget(let id): .removeWidget(id: id)
         }

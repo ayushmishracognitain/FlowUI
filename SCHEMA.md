@@ -129,6 +129,7 @@ mutations. This is how a tap updates one widget in place with no reload:
     { "kind": "replace_widget", "id": "product_1", "widget": { /* full widget */ } },
     { "kind": "remove_widget", "id": "product_2" },
     { "kind": "append_sections", "sections": [ /* sections */ ] },
+    { "kind": "prepend_sections", "sections": [ /* sections */ ] },
     { "kind": "replace_page", "page": { /* full page */ } }
   ],
   "toast": { "message": "Added to favourites" }

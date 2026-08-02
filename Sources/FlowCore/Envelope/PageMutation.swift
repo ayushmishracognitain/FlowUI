@@ -4,6 +4,7 @@ import Foundation
 public enum PageMutation: Sendable {
     case replacePage(PageModel)
     case appendSections([SectionModel])
+    case prependSections([SectionModel])
     case replaceWidget(id: String, with: AnyWidget)
     case removeWidget(id: String)
 }
@@ -15,6 +16,8 @@ public extension PageModel {
             self = page
         case .appendSections(let newSections):
             sections.append(contentsOf: newSections)
+        case .prependSections(let newSections):
+            sections.insert(contentsOf: newSections, at: 0)
         case .replaceWidget(let id, let widget):
             forEachSection { section in
                 if let index = section.widgets.firstIndex(where: { $0.id == id }) {

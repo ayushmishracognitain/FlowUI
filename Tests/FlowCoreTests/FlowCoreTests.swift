@@ -190,5 +190,8 @@ final class FlowCoreTests: XCTestCase {
 
         page.apply(.appendSections([SectionModel(id: "appended")]))
         XCTAssertEqual(page.sections.last?.id, "appended")
+
+        page.apply(.prependSections([SectionModel(id: "prepended")]))
+        XCTAssertEqual(page.sections.first?.id, "prepended")
     }
 }
