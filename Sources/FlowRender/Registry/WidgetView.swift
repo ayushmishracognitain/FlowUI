@@ -6,17 +6,17 @@ import FlowCore
 /// `dispatch` routes an event name (such as `"tap"`) through the widget's declared
 /// actions into the active `ActionDispatcher`. `state` is the page scoped store for
 /// ephemeral values like stepper counts and expanded flags.
-public struct WidgetContext {
+public struct WidgetContext: Sendable {
     public let widgetID: String
     public let actions: WidgetActions
     public let state: WidgetStateStore
-    private let dispatchAction: (ActionData, String) -> Void
+    private let dispatchAction: @MainActor @Sendable (ActionData, String) -> Void
 
     public init(
         widgetID: String,
         actions: WidgetActions,
         state: WidgetStateStore,
-        dispatchAction: @escaping (ActionData, String) -> Void
+        dispatchAction: @escaping @MainActor @Sendable (ActionData, String) -> Void
     ) {
         self.widgetID = widgetID
         self.actions = actions
@@ -25,6 +25,7 @@ public struct WidgetContext {
     }
 
     /// Fires the action registered for `event`, if the backend declared one.
+    @MainActor
     public func dispatch(event: String) {
         guard let action = actions[event] else { return }
         dispatchAction(action, widgetID)
@@ -32,6 +33,7 @@ public struct WidgetContext {
 
     /// Fires an explicit action, for content that embeds `ActionData` directly,
     /// like buttons and icons.
+    @MainActor
     public func dispatch(_ action: ActionData?) {
         guard let action else { return }
         dispatchAction(action, widgetID)
@@ -51,6 +53,11 @@ public struct WidgetContext {
 /// ```swift
 /// registry.register(OrderCardWidget.self)
 /// ```
+///
+/// The protocol is `@MainActor` isolated because `View` is. Without that the
+/// initializer requirement would be nonisolated while every conformance is main
+/// actor bound, which the Swift 6 language mode rejects.
+@MainActor
 public protocol WidgetView: View {
     associatedtype Content: WidgetContent
     init(content: Content, context: WidgetContext)

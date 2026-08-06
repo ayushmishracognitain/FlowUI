@@ -20,10 +20,10 @@ public enum UnknownWidgetPolicy: Sendable {
 /// fully type checked; the stored closures pair a decode and a view builder created
 /// in the same generic scope, so the internal cast cannot fail.
 public final class WidgetRegistry: @unchecked Sendable, WidgetDecoding {
-    private struct Entry {
-        let decode: (KeyedDecodingContainer<WidgetCodingKeys>) throws -> any WidgetContent
-        let makeView: @MainActor (any WidgetContent, WidgetContext) -> AnyView
-        let makeSkeleton: (@MainActor () -> AnyView)?
+    private struct Entry: Sendable {
+        let decode: @Sendable (KeyedDecodingContainer<WidgetCodingKeys>) throws -> any WidgetContent
+        let makeView: @MainActor @Sendable (any WidgetContent, WidgetContext) -> AnyView
+        let makeSkeleton: (@MainActor @Sendable () -> AnyView)?
     }
 
     private let lock = NSLock()
@@ -41,8 +41,8 @@ public final class WidgetRegistry: @unchecked Sendable, WidgetDecoding {
 
     /// Registers a widget view for its content's `widgetType`.
     public func register<V: WidgetView>(_ viewType: V.Type) {
-        let skeleton: (@MainActor () -> AnyView)? = (viewType as? any WidgetSkeletonProviding.Type)
-            .map { provider in { @MainActor in provider.skeleton() } }
+        let skeleton: (@MainActor @Sendable () -> AnyView)? = (viewType as? any WidgetSkeletonProviding.Type)
+            .map { provider in { @MainActor @Sendable in provider.skeleton() } }
         let entry = Entry(
             decode: { container in
                 try container.decode(V.Content.self, forKey: .data)

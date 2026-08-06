@@ -1,6 +1,13 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 
 import PackageDescription
+
+// Every target builds in the Swift 6 language mode. The framework hands widget
+// payloads to a background decode and widget views back to the main actor, so the
+// isolation needs to be checked rather than assumed.
+let swiftSettings: [SwiftSetting] = [
+    .swiftLanguageMode(.v6)
+]
 
 let package = Package(
     name: "FlowUI",
@@ -18,20 +25,24 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "FlowCore"
+            name: "FlowCore",
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "FlowRender",
-            dependencies: ["FlowCore"]
+            dependencies: ["FlowCore"],
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "FlowWidgets",
-            dependencies: ["FlowRender"]
+            dependencies: ["FlowRender"],
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "FlowCoreTests",
             dependencies: ["FlowCore"],
-            resources: [.copy("Fixtures")]
+            resources: [.copy("Fixtures")],
+            swiftSettings: swiftSettings
         )
     ]
 )

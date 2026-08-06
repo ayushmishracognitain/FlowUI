@@ -6,10 +6,10 @@ import FlowCore
 /// `FlowPageView` and `FlowSheetView` install a relay that forwards into the
 /// active `ActionDispatcher` with full page context. The default relay swallows
 /// everything, which is what previews and isolated widget rendering want.
-public struct FlowActionRelay {
-    private let send: @MainActor (ActionData, String?) -> Void
+public struct FlowActionRelay: Sendable {
+    private let send: @MainActor @Sendable (ActionData, String?) -> Void
 
-    public init(send: @escaping @MainActor (ActionData, String?) -> Void) {
+    public init(send: @escaping @MainActor @Sendable (ActionData, String?) -> Void) {
         self.send = send
     }
 

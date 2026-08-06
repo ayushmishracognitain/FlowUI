@@ -9,11 +9,16 @@ import Observation
 /// lazy container recycling and scrolling.
 ///
 /// A page refresh clears the store; pagination appends leave it untouched.
+///
+/// Main actor isolated: the store is read and written from view bodies and from
+/// SwiftUI control callbacks, and the isolation is what makes it `Sendable` so it
+/// can be carried in `WidgetContext` and in the environment.
 @Observable
+@MainActor
 public final class WidgetStateStore {
     private var storage: [String: [String: Any]] = [:]
 
-    public init() {}
+    public nonisolated init() {}
 
     public func value<T>(widgetID: String, key: String) -> T? {
         storage[widgetID]?[key] as? T
