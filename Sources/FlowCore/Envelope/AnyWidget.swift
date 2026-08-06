@@ -11,7 +11,10 @@ import Foundation
 /// `UnknownWidgetContent` and a registered type with a bad payload produces
 /// `MalformedWidgetContent`, so a single bad widget cannot take down a page.
 public struct AnyWidget: Identifiable, Decodable, Sendable {
-    public let id: String
+    /// Stable within one page. Comes from the backend's `id` when it sends one,
+    /// otherwise derived from the widget's position in the response, and rewritten
+    /// by `PageModel.makeWidgetIdentifiersUnique()` if it collides with another.
+    public var id: String
     public let type: String
     public let layout: WidgetLayout
     public let actions: WidgetActions
@@ -38,7 +41,8 @@ public struct AnyWidget: Identifiable, Decodable, Sendable {
         let container = try decoder.container(keyedBy: WidgetCodingKeys.self)
         let type = try container.decode(String.self, forKey: .type)
         self.type = type
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? "\(type).\(UUID().uuidString.prefix(8))"
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+            ?? FlowIdentity.positional(type, in: container.codingPath)
         layout = try container.decodeIfPresent(WidgetLayout.self, forKey: .layout) ?? WidgetLayout()
         actions = try container.decodeIfPresent(WidgetActions.self, forKey: .actions) ?? .none
         tracking = try container.decodeIfPresent(JSONValue.self, forKey: .tracking)

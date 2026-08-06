@@ -128,13 +128,18 @@ public struct PageModel: Decodable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? "page.\(UUID().uuidString.prefix(8))"
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+            ?? FlowIdentity.positional("page", in: container.codingPath)
         nav = try container.decodeIfPresent(NavModel.self, forKey: .nav)
         header = try container.decodeIfPresent(PageBar.self, forKey: .header)
         sections = try container.decodeIfPresent(LossyArray<SectionModel>.self, forKey: .sections)?.elements ?? []
         footer = try container.decodeIfPresent(PageBar.self, forKey: .footer)
         pagination = try container.decodeIfPresent(PaginationModel.self, forKey: .pagination)
         refresh = try container.decodeIfPresent(RefreshModel.self, forKey: .refresh)
+
+        // A page arrives with unique widget ids or it does not render correctly,
+        // so settle that here rather than trusting every backend to get it right.
+        makeWidgetIdentifiersUnique(recordingTo: decoder.userInfo[.flowDiagnostics] as? DecodeDiagnostics)
     }
 
     /// All widgets across header, sections and footer, in render order.

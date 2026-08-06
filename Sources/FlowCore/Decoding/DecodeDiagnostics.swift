@@ -13,6 +13,9 @@ public final class DecodeDiagnostics: @unchecked Sendable {
         case malformedPayload
         /// An array element could not be decoded at all and was dropped.
         case droppedElement
+        /// Two widgets in one page claimed the same `id`. The later one was renamed
+        /// so rendering stays correct, but mutations targeting that id are ambiguous.
+        case duplicateID
     }
 
     public struct Entry: Identifiable, Sendable {
@@ -41,12 +44,14 @@ public final class DecodeDiagnostics: @unchecked Sendable {
     }
 
     public func record(_ kind: Kind, widgetType: String?, codingPath: [CodingKey], message: String) {
-        let entry = Entry(
-            kind: kind,
-            widgetType: widgetType,
-            codingPath: codingPath.map(\.stringValue).joined(separator: "."),
-            message: message
-        )
+        let path = codingPath.map(\.stringValue).joined(separator: ".")
+        record(kind, widgetType: widgetType, path: path, message: message)
+    }
+
+    /// Records a problem found outside a decoding container, where the path is
+    /// already known as a string rather than as coding keys.
+    public func record(_ kind: Kind, widgetType: String?, path: String, message: String) {
+        let entry = Entry(kind: kind, widgetType: widgetType, codingPath: path, message: message)
         lock.lock()
         storage.append(entry)
         lock.unlock()

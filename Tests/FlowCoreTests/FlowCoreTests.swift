@@ -177,6 +177,70 @@ final class FlowCoreTests: XCTestCase {
         XCTAssertEqual(try action.payload(ToastPayload.self).message, "Saved")
     }
 
+    // MARK: - Identity
+
+    /// The blocker this whole suite exists to guard. `AnyWidget` is `Identifiable`
+    /// and drives `ForEach`, so an id that differs between two decodes of the same
+    /// bytes makes SwiftUI rebuild the entire page on every refresh instead of
+    /// diffing it, taking scroll position and in flight image loads with it.
+    func testIdentifiersAreStableAcrossDecodesOfTheSameBytes() throws {
+        let data = try fixture("page_identity")
+
+        func identifiers() throws -> [String] {
+            let page = try makeDecoder().decode(PageResponse.self, from: data).page
+            return page.allWidgets.map(\.id)
+        }
+
+        let first = try identifiers()
+        let second = try identifiers()
+
+        XCTAssertEqual(first, second, "Decoding the same bytes twice must produce the same widget ids")
+        XCTAssertFalse(first.isEmpty)
+    }
+
+    /// Section and page identity has to be stable for the same reason.
+    func testSectionAndPageIdentifiersAreStableAndPositional() throws {
+        let json = Data(#"{"page": {"sections": [{"widgets": []}, {"widgets": []}]}}"#.utf8)
+        let firstPage = try makeDecoder().decode(PageResponse.self, from: json).page
+        let secondPage = try makeDecoder().decode(PageResponse.self, from: json).page
+
+        XCTAssertEqual(firstPage.id, secondPage.id)
+        XCTAssertEqual(firstPage.sections.map(\.id), secondPage.sections.map(\.id))
+        // Two sections at different positions must not collide.
+        XCTAssertNotEqual(firstPage.sections[0].id, firstPage.sections[1].id)
+    }
+
+    /// Widgets with no `id` must still be distinguishable from one another.
+    func testGeneratedIdentifiersAreUniqueWithinAPage() throws {
+        let page = try makeDecoder().decode(PageResponse.self, from: try fixture("page_identity")).page
+        let identifiers = page.allWidgets.map(\.id)
+        XCTAssertEqual(
+            Set(identifiers).count,
+            identifiers.count,
+            "Every widget in a page needs a distinct id, got: \(identifiers)"
+        )
+    }
+
+    /// A backend that repeats an id corrupts `ForEach` and makes mutations
+    /// ambiguous, so the collision is renamed and reported rather than ignored.
+    func testDuplicateIdentifiersAreRenamedAndReported() throws {
+        let diagnostics = DecodeDiagnostics()
+        let page = try makeDecoder(diagnostics: diagnostics)
+            .decode(PageResponse.self, from: try fixture("page_identity")).page
+
+        let identifiers = page.allWidgets.map(\.id)
+        XCTAssertEqual(Set(identifiers).count, identifiers.count)
+
+        // The fixture claims "dup" three times: once in the header, twice in sections.
+        XCTAssertEqual(identifiers.filter { $0 == "dup" }.count, 1, "The first claimant keeps the plain id")
+        XCTAssertTrue(identifiers.contains("dup#2"))
+        XCTAssertTrue(identifiers.contains("dup#3"))
+
+        let duplicates = diagnostics.entries.filter { $0.kind == .duplicateID }
+        XCTAssertEqual(duplicates.count, 2, "Both collisions should be reported")
+        XCTAssertTrue(duplicates.allSatisfy { $0.message.contains("dup") })
+    }
+
     // MARK: - Mutations
 
     func testPageMutations() throws {
@@ -199,5 +263,49 @@ final class FlowCoreTests: XCTestCase {
 
         page.apply(.prependSections([SectionModel(id: "prepended")]))
         XCTAssertEqual(page.sections.first?.id, "prepended")
+    }
+
+    /// A sticky footer button is as replaceable as a card in the middle of the
+    /// list. Before this, `replace_widget` only ever walked section bodies, so a
+    /// mutation aimed at a bar widget was accepted and then quietly did nothing.
+    func testMutationsReachHeaderFooterAndSectionHeaders() throws {
+        var page = try makeDecoder()
+            .decode(PageResponse.self, from: try fixture("page_basic")).page
+
+        func replacement(_ id: String, _ title: String) -> AnyWidget {
+            AnyWidget(id: id, type: TestTextContent.widgetType, content: TestTextContent(title: title))
+        }
+
+        page.apply(.replaceWidget(id: "header_title", with: replacement("header_title", "New header")))
+        XCTAssertEqual(
+            (page.header?.widgets.first?.content as? TestTextContent)?.title,
+            "New header",
+            "replace_widget must reach the page header"
+        )
+
+        page.apply(.replaceWidget(id: "footer_cta", with: replacement("footer_cta", "New footer")))
+        XCTAssertEqual(
+            (page.footer?.widgets.first?.content as? TestTextContent)?.title,
+            "New footer",
+            "replace_widget must reach the page footer"
+        )
+
+        page.apply(.removeWidget(id: "header_title"))
+        XCTAssertTrue(page.header?.widgets.isEmpty ?? false)
+    }
+
+    func testMutationsReachSectionHeaders() throws {
+        var page = try makeDecoder()
+            .decode(PageResponse.self, from: try fixture("page_identity")).page
+        let headerID = try XCTUnwrap(page.sections.first?.header?.id)
+
+        page.apply(.replaceWidget(
+            id: headerID,
+            with: AnyWidget(id: headerID, type: TestTextContent.widgetType, content: TestTextContent(title: "Swapped"))
+        ))
+        XCTAssertEqual((page.sections.first?.header?.content as? TestTextContent)?.title, "Swapped")
+
+        page.apply(.removeWidget(id: headerID))
+        XCTAssertNil(page.sections.first?.header)
     }
 }

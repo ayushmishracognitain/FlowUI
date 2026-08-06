@@ -68,6 +68,11 @@ public struct SheetModel: Identifiable, Decodable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        // Deliberately not the positional id used for widgets and sections. A sheet
+        // id is presentation identity for `.sheet(item:)`, not list identity: two
+        // different inline sheets both decoded from an action's `sheet` key sit at
+        // the same coding path, and giving them a shared id would stop SwiftUI from
+        // swapping one for the other.
         id = try container.decodeIfPresent(String.self, forKey: .id) ?? "sheet.\(UUID().uuidString.prefix(8))"
         header = try container.decodeIfPresent(PageBar.self, forKey: .header)
         sections = try container.decodeIfPresent(LossyArray<SectionModel>.self, forKey: .sections)?.elements ?? []

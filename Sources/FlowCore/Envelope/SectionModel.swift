@@ -80,7 +80,8 @@ public struct SectionModel: Identifiable, Decodable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? "section.\(UUID().uuidString.prefix(8))"
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+            ?? FlowIdentity.positional("section", in: container.codingPath)
         layout = try container.decodeIfPresent(SectionLayout.self, forKey: .layout) ?? SectionLayout()
         header = try container.decodeIfPresent(AnyWidget.self, forKey: .header)
         widgets = try container.decodeIfPresent(LossyArray<AnyWidget>.self, forKey: .widgets)?.elements ?? []

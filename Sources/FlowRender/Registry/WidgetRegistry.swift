@@ -39,10 +39,20 @@ public final class WidgetRegistry: @unchecked Sendable, WidgetDecoding {
         #endif
     }
 
+    /// Builds a skeleton thunk that names the provider statically through a generic
+    /// parameter, so nothing captures a metatype value into a `@Sendable` closure.
+    private static func skeletonThunk<P: WidgetSkeletonProviding>(
+        for type: P.Type
+    ) -> @MainActor @Sendable () -> AnyView {
+        { @MainActor @Sendable in P.skeleton() }
+    }
+
     /// Registers a widget view for its content's `widgetType`.
     public func register<V: WidgetView>(_ viewType: V.Type) {
-        let skeleton: (@MainActor @Sendable () -> AnyView)? = (viewType as? any WidgetSkeletonProviding.Type)
-            .map { provider in { @MainActor @Sendable in provider.skeleton() } }
+        var skeleton: (@MainActor @Sendable () -> AnyView)?
+        if let provider = viewType as? any WidgetSkeletonProviding.Type {
+            skeleton = Self.skeletonThunk(for: provider)
+        }
         let entry = Entry(
             decode: { container in
                 try container.decode(V.Content.self, forKey: .data)

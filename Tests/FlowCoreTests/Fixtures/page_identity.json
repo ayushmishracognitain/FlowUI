@@ -1,0 +1,33 @@
+{
+  "page": {
+    "id": "identity",
+    "header": {
+      "widgets": [
+        { "type": "test_text", "id": "dup", "data": { "title": "Header, claims dup" } }
+      ]
+    },
+    "sections": [
+      {
+        "id": "sec_a",
+        "header": { "type": "test_text", "data": { "title": "Section header, no id" } },
+        "widgets": [
+          { "type": "test_text", "data": { "title": "No id at all" } },
+          { "type": "test_text", "id": "dup", "data": { "title": "Also claims dup" } },
+          { "type": "test_text", "data": { "title": "Second with no id" } }
+        ]
+      },
+      {
+        "layout": { "arrangement": "grid", "columns": 2 },
+        "widgets": [
+          { "type": "test_text", "id": "dup", "data": { "title": "Third claims dup" } },
+          { "type": "test_text", "data": { "title": "No id, second section" } }
+        ]
+      }
+    ],
+    "footer": {
+      "widgets": [
+        { "type": "test_text", "data": { "title": "Footer, no id" } }
+      ]
+    }
+  }
+}

@@ -133,7 +133,7 @@ public struct FlowPageView<LoadingView: View>: View {
                 }
             }
         }
-        .flowIfRefreshable(page.refresh?.pullToRefresh ?? false) {
+        .flowIfRefreshable(page.refresh?.pullToRefresh ?? false) { [store] in
             await store.refresh()
         }
     }

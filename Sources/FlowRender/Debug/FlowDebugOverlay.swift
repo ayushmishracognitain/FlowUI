@@ -166,6 +166,7 @@ private struct FlowDebugPanel: View {
         case .unknownType: .orange
         case .malformedPayload: .red
         case .droppedElement: .purple
+        case .duplicateID: .blue
         }
     }
 }

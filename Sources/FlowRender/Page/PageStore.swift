@@ -27,6 +27,10 @@ public final class PageStore {
     public private(set) var diagnostics = DecodeDiagnostics()
 
     private let loader: any PageLoader
+    /// The in flight page fetch. Retained so a newer request can cancel an older
+    /// one instead of racing it, which otherwise lets the slower response win.
+    private var fetchTask: Task<Void, Never>?
+    private var pageTask: Task<Void, Never>?
 
     public init(pageID: String, loader: any PageLoader, registry: WidgetRegistry) {
         self.pageID = pageID
@@ -65,16 +69,42 @@ public final class PageStore {
         defer { isLoadingMore = false }
 
         let request = PageRequest(pageID: pageID, kind: .nextPage(postback: current.pagination?.postback))
-        do {
-            let next = try await decodePage(from: try await loader.loadPage(request))
-            var merged = current
-            merged.sections.append(contentsOf: next.sections)
-            merged.pagination = next.pagination
-            state = .loaded(merged)
-        } catch {
-            // A failed pagination fetch should not blank a healthy page.
-            // The sentinel stays visible and the next appearance retries.
+        let postback = current.pagination?.postback
+
+        let task = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let next = try await self.decodePage(from: try await self.loader.loadPage(request))
+                guard !Task.isCancelled else { return }
+                self.appendNextPage(next, requestedWith: postback)
+            } catch {
+                // A failed pagination fetch should not blank a healthy page.
+                // The sentinel stays visible and the next appearance retries.
+            }
         }
+        pageTask?.cancel()
+        pageTask = task
+        await task.value
+    }
+
+    /// Merges a paginated response into whatever is on screen *now*.
+    ///
+    /// The previous version captured the page before the await and wrote that
+    /// capture back afterwards, so any mutation applied while the fetch was in
+    /// flight, an `api` action's `replace_widget` or a completed refresh, was
+    /// silently discarded. Re-reading the state here is what keeps those.
+    private func appendNextPage(_ next: PageModel, requestedWith postback: JSONValue?) {
+        guard case .loaded(var current) = state else { return }
+        // The page was replaced wholesale while this fetch was in flight, so the
+        // cursor this response answers no longer describes what is on screen.
+        guard current.pagination?.postback == postback else { return }
+
+        current.sections.append(contentsOf: next.sections)
+        current.pagination = next.pagination
+        // Two responses that were each internally consistent can still collide
+        // with one another once merged.
+        current.makeWidgetIdentifiersUnique(recordingTo: diagnostics)
+        state = .loaded(current)
     }
 
     /// Performs a loader round trip for an `api` action and returns the raw response
@@ -98,14 +128,29 @@ public final class PageStore {
 
     // MARK: - Fetch and decode
 
+    /// Runs one page fetch, cancelling any fetch already in flight.
+    ///
+    /// Without the cancellation two rapid refreshes race and whichever response
+    /// lands last wins, regardless of which was asked for last.
     private func fetch(kind: PageRequest.Kind) async {
-        do {
-            let data = try await loader.loadPage(PageRequest(pageID: pageID, kind: kind))
-            let page = try await decodePage(from: data)
-            state = page.allWidgets.isEmpty ? .empty : .loaded(page)
-        } catch {
-            state = .failed(message: friendlyMessage(for: error))
+        let task = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let data = try await self.loader.loadPage(PageRequest(pageID: self.pageID, kind: kind))
+                let page = try await self.decodePage(from: data)
+                guard !Task.isCancelled else { return }
+                self.state = page.allWidgets.isEmpty ? .empty : .loaded(page)
+            } catch is CancellationError {
+                // Superseded by a newer request; the newer one owns the state.
+            } catch {
+                guard !Task.isCancelled else { return }
+                self.state = .failed(message: self.friendlyMessage(for: error))
+            }
         }
+        fetchTask?.cancel()
+        pageTask?.cancel()
+        fetchTask = task
+        await task.value
     }
 
     private func decodePage(from data: Data) async throws -> PageModel {

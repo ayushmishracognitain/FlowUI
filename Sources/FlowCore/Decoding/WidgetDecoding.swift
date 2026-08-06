@@ -25,7 +25,9 @@ public enum WidgetCodingKeys: String, CodingKey {
 /// FlowRender's `WidgetRegistry` is the standard implementation. The protocol lives
 /// here so FlowCore can decode complete pages without importing SwiftUI, which keeps
 /// the schema testable from the command line.
-public protocol WidgetDecoding {
+/// `Sendable` because the implementation is carried through `decoder.userInfo` and
+/// pages are decoded off the main actor.
+public protocol WidgetDecoding: Sendable {
     /// Returns the decoded payload for `type`, or `nil` when the type is not registered.
     /// Throws when the type is known but its payload fails to decode.
     func decodeContent(
