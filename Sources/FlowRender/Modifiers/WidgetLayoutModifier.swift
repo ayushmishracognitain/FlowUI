@@ -18,11 +18,17 @@ public struct WidgetLayoutModifier: ViewModifier {
     public func body(content: Content) -> some View {
         content
             .padding((layout.padding ?? .zero).edgeInsets)
-            .frame(maxWidth: layout.width == .fill ? .infinity : nil)
+            .modifier(WidgetWidthModifier(width: layout.width))
             .background { backgroundFill }
-            .clipShape(clipShape)
+            .flowClipped(when: isRounded, to: clipShape)
             .overlay { borderOverlay }
             .padding((layout.margin ?? .zero).edgeInsets)
+    }
+
+    /// A widget with no `corner_radius` has nothing to round, and clipping it
+    /// anyway costs an offscreen pass and silently cuts off any shadow.
+    private var isRounded: Bool {
+        !(layout.cornerRadius ?? .zero).isZero
     }
 
     private var cornerRadii: RectangleCornerRadii {
@@ -54,6 +60,40 @@ public struct WidgetLayoutModifier: ViewModifier {
             } else {
                 clipShape.strokeBorder(color, lineWidth: width)
             }
+        }
+    }
+}
+
+/// Applies the backend's declared `width` wherever the widget sits.
+///
+/// Only `fill` used to be honoured here, with `hug` and fractions implemented
+/// solely for carousel items. A `"width": 0.5` in a vertical or grid section was
+/// accepted by the decoder, documented as valid, and then silently ignored.
+private struct WidgetWidthModifier: ViewModifier {
+    let width: WidgetWidth?
+
+    func body(content: Content) -> some View {
+        switch width {
+        case .fill:
+            content.frame(maxWidth: .infinity)
+        case .fraction(let fraction):
+            content.containerRelativeFrame(.horizontal) { length, _ in
+                length * fraction
+            }
+        case .hug, nil:
+            // `hug` is the natural SwiftUI behaviour: let the content decide.
+            content
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func flowClipped(when condition: Bool, to shape: UnevenRoundedRectangle) -> some View {
+        if condition {
+            clipShape(shape)
+        } else {
+            self
         }
     }
 }

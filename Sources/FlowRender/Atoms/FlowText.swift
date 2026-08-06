@@ -5,6 +5,9 @@ import FlowCore
 public struct FlowText: View {
     private let data: TextData
     @Environment(\.flowTheme) private var theme
+    // Read so the body re-evaluates when the user changes their text size, which
+    // is what lets a backend supplied point size actually scale.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     public init(_ data: TextData) {
         self.data = data

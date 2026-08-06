@@ -55,37 +55,18 @@ public struct SectionRenderer: View {
         return Array(repeating: GridItem(.flexible(), spacing: spacing), count: count)
     }
 
+    /// Widget width, including the fractions that produce peeking cards, is applied
+    /// by `widgetLayout` for every arrangement now, so the carousel no longer needs
+    /// a sizing modifier of its own.
     private var carousel: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: spacing) {
                 ForEach(section.widgets) { widget in
                     WidgetRowView(widget)
-                        .modifier(CarouselItemWidth(width: widget.layout.width))
                 }
             }
             .scrollTargetLayout()
         }
         .scrollTargetBehavior(.viewAligned)
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-    }
-}
-
-/// Sizes a carousel item from its declared width: a fraction of the visible
-/// container produces peeking cards, `fill` takes the full width, `hug` lets the
-/// content decide.
-private struct CarouselItemWidth: ViewModifier {
-    let width: WidgetWidth?
-
-    func body(content: Content) -> some View {
-        switch width {
-        case .fraction(let fraction):
-            content.containerRelativeFrame(.horizontal) { length, _ in
-                length * fraction
-            }
-        case .fill:
-            content.containerRelativeFrame(.horizontal)
-        case .hug, nil:
-            content
-        }
     }
 }

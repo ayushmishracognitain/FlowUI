@@ -25,12 +25,31 @@ public struct StepperRowContent: WidgetContent, Hashable {
     public let max: Int?
     public let initial: Int?
 
+    private enum CodingKeys: String, CodingKey {
+        case title
+        case subtitle
+        case min
+        case max
+        case initial
+    }
+
     public init(title: TextData, subtitle: TextData? = nil, min: Int? = nil, max: Int? = nil, initial: Int? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.min = min
         self.max = max
         self.initial = initial
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            title: try container.decode(TextData.self, forKey: .title),
+            subtitle: try container.decodeIfPresent(TextData.self, forKey: .subtitle),
+            min: try container.decodeIfPresent(Int.self, forKey: .min),
+            max: try container.decodeIfPresent(Int.self, forKey: .max),
+            initial: try container.decodeIfPresent(Int.self, forKey: .initial)
+        )
     }
 }
 

@@ -18,9 +18,22 @@ public struct TitleBlockContent: WidgetContent, Hashable {
     public let title: TextData
     public let subtitle: TextData?
 
+    private enum CodingKeys: String, CodingKey {
+        case title
+        case subtitle
+    }
+
     public init(title: TextData, subtitle: TextData? = nil) {
         self.title = title
         self.subtitle = subtitle
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            title: try container.decode(TextData.self, forKey: .title),
+            subtitle: try container.decodeIfPresent(TextData.self, forKey: .subtitle)
+        )
     }
 }
 

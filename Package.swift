@@ -43,6 +43,11 @@ let package = Package(
             dependencies: ["FlowCore"],
             resources: [.copy("Fixtures")],
             swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "FlowWidgetsTests",
+            dependencies: ["FlowWidgets"],
+            swiftSettings: swiftSettings
         )
     ]
 )

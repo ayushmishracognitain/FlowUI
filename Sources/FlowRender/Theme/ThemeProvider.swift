@@ -12,6 +12,11 @@ public struct ThemeDefaults: Sendable {
     public var cornerRadius: Double
     public var spacing: Double
     public var bodyFont: Font
+    /// When true, a backend supplied point size scales with the user's text size
+    /// setting instead of being pinned. On by default: a fixed size means a page
+    /// built with Flow-UI ignores Dynamic Type entirely. Hosts that genuinely need
+    /// pinned sizing, a tightly art directed banner for instance, can turn it off.
+    public var scalesFontsWithDynamicType: Bool
 
     public init(
         textColor: Color = .primary,
@@ -22,7 +27,8 @@ public struct ThemeDefaults: Sendable {
         separatorColor: Color = FlowPlatformColor.separator,
         cornerRadius: Double = 12,
         spacing: Double = 8,
-        bodyFont: Font = .body
+        bodyFont: Font = .body,
+        scalesFontsWithDynamicType: Bool = true
     ) {
         self.textColor = textColor
         self.secondaryTextColor = secondaryTextColor
@@ -33,6 +39,7 @@ public struct ThemeDefaults: Sendable {
         self.cornerRadius = cornerRadius
         self.spacing = spacing
         self.bodyFont = bodyFont
+        self.scalesFontsWithDynamicType = scalesFontsWithDynamicType
     }
 }
 
@@ -85,6 +92,12 @@ public struct DefaultTheme: ThemeProvider {
             return data.weight.map { Font.body.weight(Font.Weight(flowName: $0)) }
         }
         let weight = Font.Weight(flowName: data.weight ?? "regular")
-        return .system(size: size, weight: weight)
+        guard defaults.scalesFontsWithDynamicType else {
+            return .system(size: size, weight: weight)
+        }
+        // `.system(size:)` is a pinned point size: it ignores the user's text size
+        // setting completely. Running the backend's size through the metrics of the
+        // nearest text style is what makes it respond to Dynamic Type.
+        return .system(size: FlowFontScaling.scaled(size), weight: weight)
     }
 }

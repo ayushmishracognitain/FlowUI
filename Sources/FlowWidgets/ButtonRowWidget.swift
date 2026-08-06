@@ -20,8 +20,20 @@ public struct ButtonRowContent: WidgetContent, Hashable {
     public static let widgetType = "button_row"
     public let buttons: [ButtonData]
 
+    private enum CodingKeys: String, CodingKey {
+        case buttons
+    }
+
     public init(buttons: [ButtonData]) {
         self.buttons = buttons
+    }
+
+    /// Hand written so one malformed button drops instead of taking the whole row
+    /// with it. Synthesized decoding of `[ButtonData]` is all or nothing, which
+    /// contradicts the promise that a bad element never blanks the page.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(buttons: try container.decodeIfPresent(LossyArray<ButtonData>.self, forKey: .buttons)?.elements ?? [])
     }
 }
 

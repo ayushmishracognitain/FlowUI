@@ -40,17 +40,60 @@ public struct DefaultImageLoader: FlowImageLoader {
     }
 }
 
+#if canImport(UIKit)
+typealias FlowPlatformImage = UIImage
+#elseif canImport(AppKit)
+typealias FlowPlatformImage = NSImage
+#endif
+
+#if canImport(UIKit) || canImport(AppKit)
+/// A decoded bitmap on its way from a background decode to the main actor.
+///
+/// `UIImage` and `NSImage` disagree about `Sendable`, and an image that has just
+/// been decoded and not yet published is owned by exactly one task, so the box is
+/// the narrowest place to state that.
+struct FlowDecodedImage: @unchecked Sendable {
+    let platform: FlowPlatformImage
+}
+
+/// A small in memory cache of *decoded* images.
+///
+/// `URLCache` stores bytes. Turning bytes into a bitmap is the expensive half and
+/// it used to happen on every appearance, on the main thread. `NSCache` is already
+/// thread safe and evicts under memory pressure, which is exactly the policy we want.
+final class FlowDecodedImageCache: @unchecked Sendable {
+    static let shared = FlowDecodedImageCache()
+
+    private let cache = NSCache<NSString, FlowPlatformImage>()
+
+    private init() {
+        cache.countLimit = 250
+    }
+
+    func image(for key: String) -> FlowPlatformImage? {
+        cache.object(forKey: key as NSString)
+    }
+
+    func insert(_ image: FlowPlatformImage, for key: String) {
+        cache.setObject(image, forKey: key as NSString)
+    }
+
+    /// Decodes off the main actor, so a long scroll does not turn into a stutter.
+    static func decode(_ data: Data) async -> FlowDecodedImage? {
+        await Task.detached(priority: .userInitiated) {
+            FlowPlatformImage(data: data).map(FlowDecodedImage.init(platform:))
+        }.value
+    }
+}
+
 extension Image {
-    /// Builds an `Image` from raw bytes on whichever platform we are on.
-    init?(flowData data: Data) {
+    /// Builds an `Image` from an already decoded platform bitmap.
+    init(flowPlatformImage image: FlowPlatformImage) {
         #if canImport(UIKit)
-        guard let image = UIImage(data: data) else { return nil }
         self.init(uiImage: image)
-        #elseif canImport(AppKit)
-        guard let image = NSImage(data: data) else { return nil }
-        self.init(nsImage: image)
         #else
-        return nil
+        self.init(nsImage: image)
         #endif
     }
 }
+#endif

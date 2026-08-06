@@ -113,6 +113,18 @@ public final class PageStore {
         try await loader.loadPage(PageRequest(pageID: pageID, kind: .action(payload)))
     }
 
+    /// Decodes an `api` action response off the main actor, the same way page
+    /// responses are decoded. Doing it inline would block the UI for as long as a
+    /// large mutation payload takes to parse.
+    public func decodeActionResponse(from data: Data) async throws -> ActionResponse {
+        let registry = registry
+        let diagnostics = diagnostics
+        return try await Task.detached(priority: .userInitiated) {
+            try FlowDecoder.make(widgetDecoding: registry, diagnostics: diagnostics)
+                .decode(ActionResponse.self, from: data)
+        }.value
+    }
+
     // MARK: - Mutations
 
     public func apply(_ mutation: PageMutation) {

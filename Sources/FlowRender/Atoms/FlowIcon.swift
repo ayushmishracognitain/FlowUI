@@ -5,6 +5,9 @@ import FlowCore
 public struct FlowIcon: View {
     private let data: IconData
     @Environment(\.flowTheme) private var theme
+    // Read so the glyph rescales with the user's text size instead of staying
+    // pinned while the text beside it grows.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     public init(_ data: IconData) {
         self.data = data
@@ -12,8 +15,17 @@ public struct FlowIcon: View {
 
     public var body: some View {
         Image(systemName: data.symbol)
-            .font(.system(size: data.size ?? 17))
+            .font(.system(size: scaledSize))
             .foregroundStyle(theme.color(data.color, fallback: theme.defaults.textColor))
+            // Icons sit next to the text they describe and are decorative by
+            // default; a backend that needs one announced gives it an action.
+            .accessibilityHidden(data.action == nil)
+    }
+
+    private var scaledSize: Double {
+        let size = data.size ?? 17
+        guard theme.defaults.scalesFontsWithDynamicType else { return size }
+        return FlowFontScaling.scaledIcon(size)
     }
 }
 

@@ -79,18 +79,41 @@ public struct WidgetRowView: View {
 /// Applies tap and long press actions declared on the widget envelope.
 /// Gestures are only attached for events the backend actually sent, so widgets
 /// without actions stay completely passive.
+///
+/// A raw `onTapGesture` is invisible to assistive technology: it carries no trait
+/// and exposes no action, so a VoiceOver user has no way to know the widget does
+/// anything, let alone activate it. Every gesture attached here is mirrored as an
+/// accessibility trait and action, and the widget's subviews are combined into one
+/// element so it is announced as a single control rather than loose fragments.
 private struct EnvelopeGestures: ViewModifier {
     let widget: AnyWidget
     let context: WidgetContext
 
+    private var isTappable: Bool { widget.actions.tap != nil }
+    private var isLongPressable: Bool { widget.actions.longPress != nil }
+    private var isInteractive: Bool { isTappable || isLongPressable }
+
     func body(content: Content) -> some View {
         content
             .contentShape(Rectangle())
-            .flowIf(widget.actions.tap != nil) { view in
+            .flowIf(isTappable) { view in
                 view.onTapGesture { context.dispatch(event: "tap") }
             }
-            .flowIf(widget.actions.longPress != nil) { view in
+            .flowIf(isLongPressable) { view in
                 view.onLongPressGesture { context.dispatch(event: "long_press") }
+            }
+            .flowIf(isInteractive) { view in
+                view
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(isTappable ? .isButton : [])
+                    .flowIf(isTappable) { inner in
+                        inner.accessibilityAction { context.dispatch(event: "tap") }
+                    }
+                    .flowIf(isLongPressable) { inner in
+                        inner.accessibilityAction(named: Text("Long press")) {
+                            context.dispatch(event: "long_press")
+                        }
+                    }
             }
     }
 }

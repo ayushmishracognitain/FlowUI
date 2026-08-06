@@ -23,6 +23,7 @@ public struct FlowImage: View {
     public var body: some View {
         content
             .clipShape(UnevenRoundedRectangle(cornerRadii: (data.cornerRadius ?? .zero).rectangleCornerRadii))
+            .flowImageAccessibility(alt: data.alt)
             .task(id: data.url) {
                 await load()
             }
@@ -76,15 +77,48 @@ public struct FlowImage: View {
             phase = .failed
             return
         }
+
+        // A cache hit resolves without ever showing a placeholder.
+        if let cached = FlowDecodedImageCache.shared.image(for: data.url) {
+            phase = .loaded(Image(flowPlatformImage: cached))
+            return
+        }
+
+        // Only now clear whatever was on screen. `.task(id:)` re-runs when the URL
+        // changes but `phase` is `@State` and survives, so a view that keeps its
+        // identity across a URL change would otherwise keep showing the old image
+        // until the new bytes arrived.
+        phase = .loading
+
         do {
             let bytes = try await loader.imageData(for: url)
-            if let image = Image(flowData: bytes) {
-                phase = .loaded(image)
-            } else {
+            guard !Task.isCancelled else { return }
+            guard let decoded = await FlowDecodedImageCache.decode(bytes) else {
                 phase = .failed
+                return
             }
+            guard !Task.isCancelled else { return }
+            FlowDecodedImageCache.shared.insert(decoded.platform, for: data.url)
+            phase = .loaded(Image(flowPlatformImage: decoded.platform))
         } catch {
+            guard !Task.isCancelled else { return }
             phase = .failed
+        }
+    }
+}
+
+private extension View {
+    /// Announces the image when the backend supplied `alt`, and hides it from
+    /// assistive technology when it did not, which is the right default for the
+    /// decorative backdrops server driven pages are full of.
+    @ViewBuilder
+    func flowImageAccessibility(alt: String?) -> some View {
+        if let alt, !alt.isEmpty {
+            accessibilityElement()
+                .accessibilityLabel(Text(alt))
+                .accessibilityAddTraits(.isImage)
+        } else {
+            accessibilityHidden(true)
         }
     }
 }

@@ -71,10 +71,9 @@ public struct APIActionHandler: ActionHandler {
         guard action.type == "api", let store = context.pageStore else { return false }
         do {
             let data = try await store.performAction(payload: action.raw)
-            let response = try FlowDecoder.make(
-                widgetDecoding: store.registry,
-                diagnostics: store.diagnostics
-            ).decode(ActionResponse.self, from: data)
+            try Task.checkCancellation()
+            let response = try await store.decodeActionResponse(from: data)
+            try Task.checkCancellation()
 
             for instruction in response.mutations {
                 store.apply(instruction.pageMutation)
@@ -82,6 +81,10 @@ public struct APIActionHandler: ActionHandler {
             if let toast = response.toast {
                 context.presenter?.show(ToastData(message: toast.message))
             }
+            return true
+        } catch is CancellationError {
+            // The page moved on. Reporting this as a failure would put a spurious
+            // error toast in front of the user.
             return true
         } catch {
             context.presenter?.show(ToastData(message: "Something went wrong"))

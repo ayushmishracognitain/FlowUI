@@ -52,6 +52,8 @@ public struct ActionLogEntry: Identifiable, Sendable {
 @MainActor
 public final class ActionDispatcher {
     private var handlers: [any ActionHandler] = []
+    /// Handles for actions still running, so they can be cancelled together.
+    private var inFlight: [Task<Void, Never>] = []
     /// Recent dispatches, newest last. Populated in debug builds only.
     public private(set) var log: [ActionLogEntry] = []
 
@@ -72,23 +74,52 @@ public final class ActionDispatcher {
     }
 
     public func dispatch(_ action: ActionData, context: ActionContext) {
-        Task {
-            var context = context
-            context = ActionContext(
-                sourceWidgetID: context.sourceWidgetID,
-                pageStore: context.pageStore,
-                presenter: context.presenter,
-                redispatch: { [weak self] inner in
-                    self?.dispatch(inner, context: context)
-                }
-            )
-            for handler in handlers.reversed() {
-                guard await handler.handle(action, context: context) else { continue }
-                record(action, context: context, handledBy: String(describing: type(of: handler)))
-                return
-            }
-            record(action, context: context, handledBy: nil)
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.route(action, context: context)
         }
+        inFlight.append(task)
+        // Drop handles for work that has already finished, so a long lived page
+        // does not accumulate them.
+        inFlight.removeAll { $0.isCancelled }
+    }
+
+    /// Cancels every action still in flight. Hosts call this when tearing a page
+    /// down so an `api` round trip cannot land against a screen that is gone.
+    public func cancelInFlight() {
+        for task in inFlight {
+            task.cancel()
+        }
+        inFlight.removeAll()
+    }
+
+    private func route(_ action: ActionData, context: ActionContext) async {
+        // The redispatch closure used to capture the same `context` variable that
+        // then stored it, which is a reference cycle on the captured box and leaked
+        // one context per dispatched action. Rebuilding a plain context from locals
+        // means the closure captures values, not the box holding itself.
+        let widgetID = context.sourceWidgetID
+        let store = context.pageStore
+        let presenter = context.presenter
+
+        let resolved = ActionContext(
+            sourceWidgetID: widgetID,
+            pageStore: store,
+            presenter: presenter,
+            redispatch: { [weak self] inner in
+                let fresh = ActionContext(sourceWidgetID: widgetID, pageStore: store, presenter: presenter)
+                self?.dispatch(inner, context: fresh)
+            }
+        )
+
+        for handler in handlers.reversed() {
+            guard await handler.handle(action, context: resolved) else { continue }
+            guard !Task.isCancelled else { return }
+            record(action, context: resolved, handledBy: String(describing: type(of: handler)))
+            return
+        }
+        guard !Task.isCancelled else { return }
+        record(action, context: resolved, handledBy: nil)
     }
 
     private func record(_ action: ActionData, context: ActionContext, handledBy: String?) {

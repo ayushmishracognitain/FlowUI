@@ -47,6 +47,19 @@ public struct ImageTextCardContent: WidgetContent, Hashable {
         self.tags = tags
         self.trailingIcon = trailingIcon
     }
+
+    /// `title` stays required, so a card with no title is still contained as a
+    /// malformed widget. Everything else is optional and the tag array is lossy.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            image: try container.decodeIfPresent(ImageData.self, forKey: .image),
+            title: try container.decode(TextData.self, forKey: .title),
+            subtitle: try container.decodeIfPresent(TextData.self, forKey: .subtitle),
+            tags: try container.decodeIfPresent(LossyArray<TagData>.self, forKey: .tags)?.elements,
+            trailingIcon: try container.decodeIfPresent(IconData.self, forKey: .trailingIcon)
+        )
+    }
 }
 
 public struct ImageTextCardWidget: WidgetView, WidgetSkeletonProviding {

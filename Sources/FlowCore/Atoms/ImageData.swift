@@ -12,6 +12,10 @@ public struct ImageData: Codable, Hashable, Sendable {
     public var placeholderColor: ColorData?
     /// When true the placeholder animates with a shimmer sweep while loading.
     public var showShimmer: Bool?
+    /// Alternative text announced by VoiceOver. An image with no `alt` is treated
+    /// as decorative and hidden from assistive technology, which is the right
+    /// default for backdrops but wrong for anything carrying meaning.
+    public var alt: String?
 
     private enum CodingKeys: String, CodingKey {
         case url
@@ -20,6 +24,7 @@ public struct ImageData: Codable, Hashable, Sendable {
         case cornerRadius = "corner_radius"
         case placeholderColor = "placeholder_color"
         case showShimmer = "shimmer"
+        case alt
     }
 
     public init(
@@ -28,7 +33,8 @@ public struct ImageData: Codable, Hashable, Sendable {
         scaleMode: String? = nil,
         cornerRadius: CornerRadiusData? = nil,
         placeholderColor: ColorData? = nil,
-        showShimmer: Bool? = nil
+        showShimmer: Bool? = nil,
+        alt: String? = nil
     ) {
         self.url = url
         self.aspectRatio = aspectRatio
@@ -36,6 +42,7 @@ public struct ImageData: Codable, Hashable, Sendable {
         self.cornerRadius = cornerRadius
         self.placeholderColor = placeholderColor
         self.showShimmer = showShimmer
+        self.alt = alt
     }
 
     public init(from decoder: Decoder) throws {
@@ -50,7 +57,8 @@ public struct ImageData: Codable, Hashable, Sendable {
             scaleMode: try container.decodeIfPresent(String.self, forKey: .scaleMode),
             cornerRadius: try container.decodeIfPresent(CornerRadiusData.self, forKey: .cornerRadius),
             placeholderColor: try container.decodeIfPresent(ColorData.self, forKey: .placeholderColor),
-            showShimmer: try container.decodeIfPresent(Bool.self, forKey: .showShimmer)
+            showShimmer: try container.decodeIfPresent(Bool.self, forKey: .showShimmer),
+            alt: try container.decodeIfPresent(String.self, forKey: .alt)
         )
     }
 }

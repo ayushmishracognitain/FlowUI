@@ -20,8 +20,18 @@ public struct TagRailContent: WidgetContent, Hashable {
     public static let widgetType = "tag_rail"
     public let tags: [TagData]
 
+    private enum CodingKeys: String, CodingKey {
+        case tags
+    }
+
     public init(tags: [TagData]) {
         self.tags = tags
+    }
+
+    /// Hand written so one malformed tag drops instead of emptying the whole rail.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(tags: try container.decodeIfPresent(LossyArray<TagData>.self, forKey: .tags)?.elements ?? [])
     }
 }
 

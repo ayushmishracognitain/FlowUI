@@ -22,10 +22,25 @@ public struct BannerContent: WidgetContent, Hashable {
     public let title: TextData?
     public let subtitle: TextData?
 
+    private enum CodingKeys: String, CodingKey {
+        case image
+        case title
+        case subtitle
+    }
+
     public init(image: ImageData, title: TextData? = nil, subtitle: TextData? = nil) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            image: try container.decode(ImageData.self, forKey: .image),
+            title: try container.decodeIfPresent(TextData.self, forKey: .title),
+            subtitle: try container.decodeIfPresent(TextData.self, forKey: .subtitle)
+        )
     }
 }
 
