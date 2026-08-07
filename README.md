@@ -5,11 +5,8 @@
   <img alt="Flow-UI: your backend sends JSON, your app renders the screen" src=".github/assets/hero-light.svg" width="100%">
 </picture>
 
-[![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml)
-[![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138.svg)](https://swift.org)
-[![Platforms](https://img.shields.io/badge/iOS%2017%20%7C%20macOS%2014-4F8CFF.svg)](https://developer.apple.com)
-[![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<!-- One source line on purpose: a line break between badges makes GitHub stack them. -->
+[![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml) [![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138.svg?style=flat)](https://swift.org) [![Platforms](https://img.shields.io/badge/iOS%2017%20%7C%20macOS%2014-4F8CFF.svg?style=flat)](https://developer.apple.com) [![SPM](https://img.shields.io/badge/SPM-compatible-4F8CFF.svg?style=flat)](https://swift.org/package-manager) [![License](https://img.shields.io/badge/license-MIT-555.svg?style=flat)](LICENSE)
 
 </div>
 
