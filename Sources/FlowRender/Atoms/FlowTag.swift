@@ -42,12 +42,12 @@ public struct FlowTag: View {
     HStack(spacing: 8) {
         FlowTag(TagData(
             text: TextData(text: "BESTSELLER", color: ColorData(hex: "#FFFFFF")),
-            backgroundColor: ColorData(hex: "#E23744")
+            backgroundColor: ColorData(hex: "#4F46E5")
         ))
         FlowTag(TagData(
-            text: TextData(text: "4.2", color: ColorData(hex: "#267E3E")),
-            borderColor: ColorData(hex: "#267E3E"),
-            icon: IconData(symbol: "star.fill", size: 10, color: ColorData(hex: "#267E3E"))
+            text: TextData(text: "4.2", color: ColorData(hex: "#15803D")),
+            borderColor: ColorData(hex: "#15803D"),
+            icon: IconData(symbol: "star.fill", size: 10, color: ColorData(hex: "#15803D"))
         ))
         FlowTag(TagData(text: TextData(text: "New")))
     }

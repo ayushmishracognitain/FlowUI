@@ -45,14 +45,14 @@
           "type": "button_row",
           "id": "confirm_cta",
           "layout": { "padding": { "top": 10, "left": 16, "right": 16, "bottom": 10 } },
-          "data": { "buttons": [ { "title": { "text": "Confirm slot", "color": "#FFFFFF" }, "bg_color": "#0C831F", "corner_radius": 12, "full_width": true, "action": {
+          "data": { "buttons": [ { "title": { "text": "Confirm slot", "color": "#FFFFFF" }, "bg_color": "#059669", "corner_radius": 12, "full_width": true, "action": {
             "type": "open_bottom_sheet",
             "sheet": {
               "id": "confirm_sheet",
               "config": { "detents": [0.35], "grabber": true, "corner_radius": 28 },
               "header": {
                 "widgets": [
-                  { "type": "title_block", "id": "confirm_hero", "layout": { "padding": { "top": 22, "left": 16, "right": 16, "bottom": 14 }, "gradient": { "colors": [ { "hex": "#0C831F" }, { "hex": "#34D399" } ], "angle": 35 } }, "data": { "title": { "text": "Slot confirmed", "font": { "size": 20, "weight": "heavy" }, "color": "#FFFFFF" }, "subtitle": { "text": "We will see you then", "color": "#CCFFFFFF" } } }
+                  { "type": "title_block", "id": "confirm_hero", "layout": { "padding": { "top": 22, "left": 16, "right": 16, "bottom": 14 }, "gradient": { "colors": [ { "hex": "#059669" }, { "hex": "#34D399" } ], "angle": 35 } }, "data": { "title": { "text": "Slot confirmed", "font": { "size": 20, "weight": "heavy" }, "color": "#FFFFFF" }, "subtitle": { "text": "We will see you then", "color": "#CCFFFFFF" } } }
                 ]
               },
               "sections": [
@@ -62,7 +62,7 @@
               ],
               "footer": {
                 "widgets": [
-                  { "type": "button_row", "id": "confirm_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#0C831F", "full_width": true, "action": { "type": "dismiss" } } ] } }
+                  { "type": "button_row", "id": "confirm_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#059669", "full_width": true, "action": { "type": "dismiss" } } ] } }
                 ]
               }
             }

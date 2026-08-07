@@ -26,7 +26,7 @@
           {
             "type": "title_block",
             "id": "chip_1",
-            "layout": { "width": 0.6, "padding": { "top": 16, "left": 14, "right": 14, "bottom": 16 }, "corner_radius": 16, "gradient": { "colors": [ { "hex": "#0C831F" }, { "hex": "#34D399" } ], "angle": 45 } },
+            "layout": { "width": 0.6, "padding": { "top": 16, "left": 14, "right": 14, "bottom": 16 }, "corner_radius": 16, "gradient": { "colors": [ { "hex": "#059669" }, { "hex": "#34D399" } ], "angle": 45 } },
             "data": { "title": { "text": "Chargers", "font": { "size": 17, "weight": "bold" }, "color": "#FFFFFF" }, "subtitle": { "text": "From 499", "color": "#CCFFFFFF" } },
             "actions": { "tap": { "type": "toast", "message": "Chargers tapped" } }
           },
@@ -59,7 +59,7 @@
           {
             "type": "button_row",
             "id": "cta_deeplink",
-            "data": { "buttons": [ { "title": { "text": "Book a delivery slot", "color": "#FFFFFF" }, "bg_color": "#0C831F", "corner_radius": 12, "full_width": true, "icon": { "symbol": "calendar", "size": 15, "color": "#FFFFFF" }, "action": { "type": "deeplink", "url": "flowdemo://page/checkout" } } ] }
+            "data": { "buttons": [ { "title": { "text": "Book a delivery slot", "color": "#FFFFFF" }, "bg_color": "#059669", "corner_radius": 12, "full_width": true, "icon": { "symbol": "calendar", "size": 15, "color": "#FFFFFF" }, "action": { "type": "deeplink", "url": "flowdemo://page/checkout" } } ] }
           },
           {
             "type": "button_row",
@@ -86,7 +86,7 @@
                 ],
                 "footer": {
                   "widgets": [
-                    { "type": "button_row", "id": "sheet_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#0C831F", "full_width": true, "action": { "type": "dismiss" } } ] } }
+                    { "type": "button_row", "id": "sheet_done", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Done", "color": "#FFFFFF" }, "bg_color": "#059669", "full_width": true, "action": { "type": "dismiss" } } ] } }
                   ]
                 }
               }

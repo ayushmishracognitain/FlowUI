@@ -141,7 +141,7 @@ enum PlaygroundTemplates {
             "buttons": [
               {
                 "title": { "text": "Primary", "color": "#FFFFFF" },
-                "bg_color": "#E23744",
+                "bg_color": "#4F46E5",
                 "full_width": true,
                 "action": { "type": "toast", "message": "Primary" }
               },
@@ -162,7 +162,7 @@ enum PlaygroundTemplates {
             "tags": [
               {
                 "text": { "text": "One", "color": "#FFFFFF" },
-                "bg_color": "#E23744",
+                "bg_color": "#4F46E5",
                 "corner_radius": 14
               },
               { "text": "Two", "corner_radius": 14 },
@@ -224,7 +224,7 @@ enum PlaygroundTemplates {
             "status": {
               "text": {
                 "text": "READY",
-                "color": "#267E3E",
+                "color": "#15803D",
                 "font": { "size": 10, "weight": "bold" }
               },
               "bg_color": "#DCFCE7"
@@ -290,7 +290,7 @@ enum PlaygroundTemplates {
                             "buttons": [
                               {
                                 "title": { "text": "Done", "color": "#FFFFFF" },
-                                "bg_color": "#267E3E",
+                                "bg_color": "#15803D",
                                 "full_width": true,
                                 "action": { "type": "dismiss" }
                               }

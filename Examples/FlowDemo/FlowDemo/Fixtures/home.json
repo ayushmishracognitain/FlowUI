@@ -22,7 +22,7 @@
                   "text": "All",
                   "color": "#FFFFFF"
                 },
-                "bg_color": "#E23744",
+                "bg_color": "#4F46E5",
                 "corner_radius": 14
               },
               {
@@ -216,7 +216,7 @@
                       "weight": "bold"
                     }
                   },
-                  "bg_color": "#E23744"
+                  "bg_color": "#4F46E5"
                 }
               ],
               "trailing_icon": {
@@ -359,7 +359,7 @@
                                 "text": "Add to cart",
                                 "color": "#FFFFFF"
                               },
-                              "bg_color": "#E23744",
+                              "bg_color": "#4F46E5",
                               "full_width": true,
                               "action": {
                                 "type": "toast",
@@ -423,13 +423,13 @@
                 {
                   "text": {
                     "text": "4.4",
-                    "color": "#267E3E"
+                    "color": "#15803D"
                   },
-                  "border_color": "#267E3E",
+                  "border_color": "#15803D",
                   "icon": {
                     "symbol": "star.fill",
                     "size": 9,
-                    "color": "#267E3E"
+                    "color": "#15803D"
                   }
                 }
               ]
@@ -675,7 +675,7 @@
                   "text": "View cart",
                   "color": "#FFFFFF"
                 },
-                "bg_color": "#267E3E",
+                "bg_color": "#15803D",
                 "full_width": true,
                 "action": {
                   "type": "toast",

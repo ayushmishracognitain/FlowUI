@@ -9,7 +9,7 @@ import FlowRender
 ///   "type": "tag_rail",
 ///   "data": {
 ///     "tags": [
-///       { "text": "All", "bg_color": "#E23744", "action": { "type": "api", "filter": "all" } },
+///       { "text": "All", "bg_color": "#4F46E5", "action": { "type": "api", "filter": "all" } },
 ///       { "text": "Audio" },
 ///       { "text": "Wearables" }
 ///     ]
@@ -65,7 +65,7 @@ public struct TagRailWidget: WidgetView {
         content: TagRailContent(tags: [
             TagData(
                 text: TextData(text: "All", color: ColorData(hex: "#FFFFFF")),
-                backgroundColor: ColorData(hex: "#E23744"),
+                backgroundColor: ColorData(hex: "#4F46E5"),
                 cornerRadius: CornerRadiusData(uniform: 14)
             ),
             TagData(text: TextData(text: "Audio"), cornerRadius: CornerRadiusData(uniform: 14)),

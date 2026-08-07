@@ -33,7 +33,7 @@ public struct FlowIcon: View {
     HStack(spacing: 16) {
         FlowIcon(IconData(symbol: "star.fill", size: 24, color: ColorData(hex: "#F5A623")))
         FlowIcon(IconData(symbol: "chevron.right", size: 14))
-        FlowIcon(IconData(symbol: "cart", size: 20, color: ColorData(hex: "#E23744")))
+        FlowIcon(IconData(symbol: "cart", size: 20, color: ColorData(hex: "#4F46E5")))
     }
     .padding()
 }

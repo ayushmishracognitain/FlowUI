@@ -71,7 +71,7 @@ public struct FlowButton: View {
     VStack(spacing: 12) {
         FlowButton(ButtonData(
             title: TextData(text: "Place order"),
-            backgroundColor: ColorData(hex: "#E23744"),
+            backgroundColor: ColorData(hex: "#4F46E5"),
             isFullWidth: true
         ))
         FlowButton(ButtonData(title: TextData(text: "Outlined"), style: "outline"))

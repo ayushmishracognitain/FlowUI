@@ -67,7 +67,7 @@ private extension View {
             text: "Colored, centered, two line maximum. This line is intentionally long "
                 + "enough to wrap and then truncate somewhere sensible.",
             font: FontData(size: 14),
-            color: ColorData(hex: "#E23744"),
+            color: ColorData(hex: "#4F46E5"),
             alignment: "center",
             maxLines: 2
         ))

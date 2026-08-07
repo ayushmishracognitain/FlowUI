@@ -9,7 +9,7 @@ import FlowRender
 ///   "type": "button_row",
 ///   "data": {
 ///     "buttons": [
-///       { "title": "Accept", "bg_color": "#267E3E", "full_width": true,
+///       { "title": "Accept", "bg_color": "#15803D", "full_width": true,
 ///         "action": { "type": "api", "endpoint": "accept" } },
 ///       { "title": "Reject", "style": "outline", "action": { "type": "toast", "message": "Rejected" } }
 ///     ]
@@ -62,7 +62,7 @@ public struct ButtonRowWidget: WidgetView {
         content: ButtonRowContent(buttons: [
             ButtonData(
                 title: TextData(text: "Accept", color: ColorData(hex: "#FFFFFF")),
-                backgroundColor: ColorData(hex: "#267E3E"),
+                backgroundColor: ColorData(hex: "#15803D"),
                 isFullWidth: true
             ),
             ButtonData(title: TextData(text: "Reject"), style: "outline")
