@@ -1,0 +1,9 @@
+# Swift Package Index build configuration, so the listing builds DocC for all
+# three products rather than guessing which targets to document.
+version: 1
+builder:
+  configs:
+    - documentation_targets:
+        - FlowCore
+        - FlowRender
+        - FlowWidgets

@@ -31,6 +31,8 @@ let package = Package(
         .target(
             name: "FlowRender",
             dependencies: ["FlowCore"],
+            // Flow-UI collects nothing, but an SDK is expected to say so out loud.
+            resources: [.copy("PrivacyInfo.xcprivacy")],
             swiftSettings: swiftSettings
         ),
         .target(

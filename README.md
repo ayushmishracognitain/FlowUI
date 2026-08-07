@@ -1,8 +1,41 @@
 # Flow-UI
 
+[![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml)
+[![Swift 6](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org)
+[![Platforms](https://img.shields.io/badge/platforms-iOS%2017%20%7C%20macOS%2014-lightgrey.svg)](https://developer.apple.com)
+[![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A server driven UI framework for SwiftUI. The backend describes screens as JSON
 (pages, sections, widgets); Flow-UI decodes, lays out and renders them, routes
 every interaction, and stays open for any widget your app needs to add.
+
+## Installation
+
+Swift Package Manager. In Xcode: **File > Add Package Dependencies**, paste the
+repository URL. Or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ayushmishracognitain/FlowUI.git", from: "1.0.0")
+]
+```
+
+Then depend on the product you want:
+
+```swift
+.target(name: "MyApp", dependencies: [
+    .product(name: "FlowUI", package: "FlowUI")
+])
+```
+
+| Product | Take this when |
+| --- | --- |
+| `FlowUI` | You are building an app. Schema, renderer and the starter widgets. |
+| `FlowRender` | You want the renderer without the starter widget library. |
+| `FlowCore` | Schema only. Foundation, no SwiftUI, so it runs in backend tooling and tests. |
+
+Requires Xcode 16 or newer: the package builds in the Swift 6 language mode.
 
 - **iOS 17+ / macOS 14+, Swift 6 language mode, pure SwiftUI, zero dependencies.**
   No networking stack, no image library, no design system baked in: those are seams

@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Build and test (Swift 6, macOS)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swift --version && xcodebuild -version
+      - name: Build
+        run: swift build
+      - name: Test
+        run: swift test
+
+  ios:
+    name: iOS Simulator build
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build package for iOS
+        run: xcodebuild -scheme FlowUI -destination 'generic/platform=iOS Simulator' build
+      - name: Build the demo app
+        working-directory: Examples/FlowDemo
+        run: |
+          xcodebuild -project FlowDemo.xcodeproj \
+                     -scheme FlowDemo \
+                     -destination 'generic/platform=iOS Simulator' \
+                     build
+
+  lint:
+    name: SwiftLint
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: Lint
+        run: swiftlint --strict
+
+  style:
+    name: Style gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The project bans em-dashes everywhere, including docs and comments.
+      - name: No em-dashes
+        run: |
+          if grep -rInP '\x{2014}|\x{2013}' \
+               --include='*.swift' --include='*.md' --include='*.mdx' \
+               --include='*.json' --include='*.yml' \
+               --exclude-dir=.build --exclude-dir=node_modules . ; then
+            echo "::error::Found an em-dash or en-dash. Use commas, colons, periods or parentheses."
+            exit 1
+          fi
+          echo "Style gate clean."
