@@ -26,14 +26,34 @@ struct OrderCardContent: WidgetContent, Hashable {
         case items
         case total
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        orderNumber = try container.decode(TextData.self, forKey: .orderNumber)
+        status = try container.decodeIfPresent(TagData.self, forKey: .status)
+        // LossyArray, not [TextData]: a synthesized array is all or nothing, so one
+        // bad element would take the whole widget with it.
+        items = try container.decodeIfPresent(LossyArray<TextData>.self, forKey: .items)?.elements ?? []
+        total = try container.decodeIfPresent(TextData.self, forKey: .total)
+    }
 }
 ```
+
+Write the initializer by hand and use `decodeIfPresent` with a default for every
+optional field. Required fields stay required, which is what lets a genuinely
+unusable payload be contained as a malformed widget instead of rendering nonsense.
+Arrays go through `LossyArray` so one bad element drops rather than emptying the
+widget.
 
 ## 2. Write the view
 
 A `WidgetView` is an ordinary SwiftUI view initialized with your typed content
 and a context. Use the Flow atoms for rendering and `context` for interactions
 and state.
+
+`WidgetView` is `@MainActor` isolated, the same as `View` itself, so your
+conformance needs nothing special. The package builds in the Swift 6 language
+mode and your widget will too.
 
 ```swift
 import SwiftUI
@@ -102,6 +122,45 @@ private var count: Binding<Int> {
 ```
 
 Refreshing a page clears the store; pagination appends keep it.
+
+The store is keyed by widget id, so **send a stable `id` for any widget that holds
+state or is a mutation target**. Widgets with no `id` are given one derived from
+their position in the response, which is stable across refreshes but moves if the
+backend reorders the page.
+
+## Accessibility
+
+The renderer handles the envelope for you: a widget carrying `actions.tap` is
+exposed as a button with a matching accessibility action, and its subviews are
+combined into one element. Inside your view, two things are yours:
+
+- Give meaningful images an `alt` in the JSON. Images without one are treated as
+  decorative and hidden from VoiceOver.
+- Label any control you build yourself, the way `StepperRowWidget` labels its
+  plus and minus buttons.
+
+Backend supplied font sizes scale with Dynamic Type by default. If a widget must
+be pinned, set `scalesFontsWithDynamicType: false` on your theme's `ThemeDefaults`.
+
+## Impressions
+
+Widgets can carry an opaque `tracking` object. Implement `FlowTrackingSink` and
+install it once to receive it:
+
+```swift
+struct MyAnalytics: FlowTrackingSink {
+    func widgetDidAppear(_ impression: FlowImpression) {
+        Analytics.log("impression", properties: impression.tracking)
+    }
+}
+
+FlowPageView(store: store)
+    .flowTrackingSink(MyAnalytics())
+```
+
+An impression fires once the widget has held the screen for a dwell threshold
+(250ms by default, `.flowImpressionThreshold(_:)` to change it), so a fast scroll
+does not report every row it passes.
 
 ## Custom actions
 

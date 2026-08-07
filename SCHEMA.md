@@ -65,6 +65,18 @@ A widget whose `type` the client does not know is skipped (debug builds show a
 labelled placeholder instead). A widget whose `data` fails to decode is likewise
 contained. The page always renders.
 
+### About `id`
+
+`id` is optional but you should send one for anything interactive, stateful or
+replaceable. When you omit it the client derives one from the widget's position in
+the response. That is stable across refreshes of the same payload, which is what
+keeps scroll position and in flight images alive, but it moves if you reorder the
+page and it cannot be targeted by a mutation.
+
+**Ids must be unique within a page.** A repeat is renamed (`cart_row`, then
+`cart_row#2`) and reported as a `duplicateID` diagnostic, because duplicate ids
+break list rendering and make `replace_widget` ambiguous.
+
 ### WidgetLayout, the backend controlled chrome
 
 Applied inside out: padding, background and gradient, corner clipping, border, margin.
@@ -81,7 +93,9 @@ Applied inside out: padding, background and gradient, corner clipping, border, m
 }
 ```
 
-`width` as a fraction matters inside carousels: `0.75` produces peeking cards.
+`width` applies in every arrangement. `fill` stretches to the available width,
+`hug` takes only what the content needs, and a fraction takes that share of the
+container. Fractions inside carousels are what produce peeking cards.
 
 ## Atoms
 
@@ -92,7 +106,7 @@ These small shapes appear inside widget payloads everywhere.
 | TextData | `"Hello"` or `{ "text": "Hello", "font": FontData, "color": ColorData, "alignment": "leading\|center\|trailing", "max_lines": 2, "is_markdown": true }` | Bare string shorthand accepted |
 | ColorData | `"#E23744"` or `{ "hex": "#E23744", "dark_hex": "#FF6B6B", "token": "surface.primary", "alpha": 0.8 }` | `token` wins when the host has a design system; 8 digit hex is alpha first |
 | FontData | `{ "size": 16, "weight": "semibold", "token": "title.large" }` | Weights: regular, medium, semibold, bold, heavy, light |
-| ImageData | `"https://..."` or `{ "url": "https://...", "aspect_ratio": 2.2, "scale_mode": "fill\|fit", "corner_radius": 12, "placeholder_color": ColorData, "shimmer": true }` | `aspect_ratio` reserves the shape before loading |
+| ImageData | `"https://..."` or `{ "url": "https://...", "aspect_ratio": 2.2, "scale_mode": "fill\|fit", "corner_radius": 12, "placeholder_color": ColorData, "shimmer": true, "alt": "AirPods in a case" }` | `aspect_ratio` reserves the shape before loading. `alt` is read by VoiceOver; an image without one is treated as decorative and hidden |
 | IconData | `"star.fill"` or `{ "symbol": "star.fill", "size": 14, "color": ColorData, "action": ActionData }` | SF Symbol names |
 | ButtonData | `{ "title": TextData, "style": "solid\|outline\|plain", "bg_color": ColorData, "corner_radius": 12, "icon": IconData, "full_width": true, "disabled": false, "action": ActionData }` | |
 | TagData | `{ "text": TextData, "bg_color": ColorData, "border_color": ColorData, "corner_radius": 6, "icon": IconData, "action": ActionData }` | |
@@ -190,9 +204,42 @@ The `data` object for each widget in the FlowWidgets library:
 { "header": TextData, "initially_expanded": false, "items": [ /* widgets */ ] }
 ```
 
+## Tracking
+
+Every widget can carry an opaque `tracking` object. The client never reads it. It
+is handed to the host's `FlowTrackingSink` once the widget has held the screen long
+enough to count as seen, so your event schema stays yours:
+
+```jsonc
+{
+  "type": "image_text_card",
+  "id": "product_1",
+  "tracking": { "impression_id": "imp_1", "surface": "home_feed", "slot": 3 },
+  "data": { "title": "AirPods Pro 2" }
+}
+```
+
+Hosts that install no sink discard impressions.
+
+## Accessibility
+
+Two things the backend controls:
+
+- **`alt` on images.** Anything carrying meaning needs one. Images without `alt`
+  are hidden from VoiceOver as decorative, which is right for backdrops and wrong
+  for product photos.
+- **`actions.tap`.** A widget with a tap action is automatically announced as a
+  button with an activation action. You get this for free by declaring the action
+  rather than by any extra field.
+
+Backend `font.size` values scale with the user's text size setting.
+
 ## Compatibility rules
 
 1. New widget types can ship any time; old clients skip them cleanly.
 2. New optional fields on existing payloads are always safe.
 3. Never repurpose an existing key's meaning; add a new key instead.
-4. Keep `id` stable across responses for widgets that mutate or hold state.
+4. Keep `id` stable across responses for widgets that mutate or hold state, and
+   unique within a page.
+5. A malformed element inside a payload array is dropped, not fatal. One bad
+   button does not empty a `button_row`.

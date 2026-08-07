@@ -4,8 +4,9 @@ A server driven UI framework for SwiftUI. The backend describes screens as JSON
 (pages, sections, widgets); Flow-UI decodes, lays out and renders them, routes
 every interaction, and stays open for any widget your app needs to add.
 
-- **iOS 17+ / macOS 14+, pure SwiftUI, zero dependencies.** No networking stack,
-  no image library, no design system baked in: those are seams your app plugs into.
+- **iOS 17+ / macOS 14+, Swift 6 language mode, pure SwiftUI, zero dependencies.**
+  No networking stack, no image library, no design system baked in: those are seams
+  your app plugs into.
 - **Open widget registry.** One call registers a widget type: the backend `type`
   string, its payload model and its SwiftUI view. Adding a widget never touches
   framework code.
@@ -20,6 +21,11 @@ every interaction, and stays open for any widget your app needs to add.
   anything you define) routed through an extensible handler chain.
 - **Loading aesthetics built in.** Shimmer, skeletons and gradients work out of
   the box, per widget and per page, backend toggleable.
+- **Accessible by default.** A backend declared tap is announced as a button with
+  a real activation action, images carry `alt`, and backend font sizes scale with
+  Dynamic Type.
+- **Impressions as a seam.** Widgets carry an opaque `tracking` object; implement
+  `FlowTrackingSink` and it arrives, dwell debounced, with your schema untouched.
 
 ## Quick start
 
@@ -100,4 +106,11 @@ layout inspector.
 swift test
 ```
 
-`FlowCore` is UI free and fully covered by fixture based decode tests.
+`FlowCore` is UI free and covered by fixture based decode tests; `FlowWidgets` has
+its own suite for the starter payloads. The package builds clean in the Swift 6
+language mode:
+
+```
+swift build
+swiftlint --strict
+```
