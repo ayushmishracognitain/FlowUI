@@ -1,32 +1,70 @@
-# Flow-UI
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/hero-dark.svg">
+  <img alt="Flow-UI: your backend sends JSON, your app renders the screen" src=".github/assets/hero-light.svg" width="100%">
+</picture>
 
 [![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml)
-[![Swift 6](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org)
-[![Platforms](https://img.shields.io/badge/platforms-iOS%2017%20%7C%20macOS%2014-lightgrey.svg)](https://developer.apple.com)
+[![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138.svg)](https://swift.org)
+[![Platforms](https://img.shields.io/badge/iOS%2017%20%7C%20macOS%2014-4F8CFF.svg)](https://developer.apple.com)
 [![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A server driven UI framework for SwiftUI. The backend describes screens as JSON
-(pages, sections, widgets); Flow-UI decodes, lays out and renders them, routes
-every interaction, and stays open for any widget your app needs to add.
+</div>
+
+Ship a new screen without shipping a new build. The backend describes pages,
+sections and widgets as JSON; Flow-UI decodes it, lays it out, renders it, and
+routes every interaction back to your code.
+
+No networking stack, no image library, no design system. Those are seams your app
+plugs into.
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/device-dark.png">
+    <img alt="A Flow-UI page running in the demo app" src=".github/assets/device-light.png" width="300">
+  </picture>
+</div>
+
+## See it work
+
+<table>
+<tr>
+<td width="50%" valign="top" align="center">
+  <img src=".github/assets/resilience.gif" width="290" alt="Broken widgets contained, the page still renders">
+  <br><br><b>One bad widget never blanks a screen</b>
+  <br><sub>Unknown types and malformed payloads become labelled cards. The debug console names the exact key path.</sub>
+</td>
+<td width="50%" valign="top" align="center">
+  <img src=".github/assets/mutation.gif" width="290" alt="An api action replacing one card in place">
+  <br><br><b>Update one widget, not the page</b>
+  <br><sub>A tap sends an <code>api</code> action, the backend answers with a mutation, the card swaps in place.</sub>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top" align="center">
+  <img src=".github/assets/playground.gif" width="290" alt="Choosing a widget template and seeing it render live">
+  <br><br><b>Paste JSON, see the screen</b>
+  <br><sub>The demo ships a playground that renders anything you give it, including your own widgets.</sub>
+</td>
+<td width="50%" valign="top" align="center">
+  <img src=".github/assets/shimmer.gif" width="290" alt="A skeleton resolving into loaded content">
+  <br><br><b>Loading states are not an afterthought</b>
+  <br><sub>Shimmer, skeletons and placeholder colours are built in and toggled from the payload.</sub>
+</td>
+</tr>
+</table>
 
 ## Installation
 
-Swift Package Manager. In Xcode: **File > Add Package Dependencies**, paste the
-repository URL. Or add it to your `Package.swift`:
+Swift Package Manager. In Xcode: **File > Add Package Dependencies**, and paste the
+repository URL. Or in your `Package.swift`:
 
 ```swift
 dependencies: [
     .package(url: "https://github.com/ayushmishracognitain/FlowUI.git", from: "1.0.0")
 ]
-```
-
-Then depend on the product you want:
-
-```swift
-.target(name: "MyApp", dependencies: [
-    .product(name: "FlowUI", package: "FlowUI")
-])
 ```
 
 | Product | Take this when |
@@ -36,29 +74,6 @@ Then depend on the product you want:
 | `FlowCore` | Schema only. Foundation, no SwiftUI, so it runs in backend tooling and tests. |
 
 Requires Xcode 16 or newer: the package builds in the Swift 6 language mode.
-
-- **iOS 17+ / macOS 14+, Swift 6 language mode, pure SwiftUI, zero dependencies.**
-  No networking stack, no image library, no design system baked in: those are seams
-  your app plugs into.
-- **Open widget registry.** One call registers a widget type: the backend `type`
-  string, its payload model and its SwiftUI view. Adding a widget never touches
-  framework code.
-- **Backend controlled chrome.** Margins, padding, corner radii, backgrounds,
-  gradients, borders and widths all come from the JSON and are applied by a single
-  layout modifier.
-- **Pages that refuse to die.** Unknown widget types and malformed payloads are
-  skipped (or shown as labelled cards in debug builds) with every problem recorded
-  in diagnostics. One bad widget never blanks a screen.
-- **Actions as data.** Taps, long presses and change events carry declarative
-  actions (`toast`, `dismiss`, `refresh_page`, `open_bottom_sheet`, `api`, or
-  anything you define) routed through an extensible handler chain.
-- **Loading aesthetics built in.** Shimmer, skeletons and gradients work out of
-  the box, per widget and per page, backend toggleable.
-- **Accessible by default.** A backend declared tap is announced as a button with
-  a real activation action, images carry `alt`, and backend font sizes scale with
-  Dynamic Type.
-- **Impressions as a seam.** Widgets carry an opaque `tracking` object; implement
-  `FlowTrackingSink` and it arrives, dwell debounced, with your schema untouched.
 
 ## Quick start
 
@@ -88,9 +103,7 @@ UIKit hosts use `FlowHostingController(store:)` instead of `FlowPageView`.
 
 A page is sections of widgets. Every widget carries a `type`, an optional `id`,
 backend controlled `layout` chrome, its `data` payload, declarative `actions`
-and opaque `tracking`. See [SCHEMA.md](SCHEMA.md) for the full contract with
-copy ready examples, and [ADDING_A_WIDGET.md](ADDING_A_WIDGET.md) for the three
-step recipe to add your own widget.
+and opaque `tracking`.
 
 ```jsonc
 {
@@ -114,6 +127,29 @@ step recipe to add your own widget.
 }
 ```
 
+See [SCHEMA.md](SCHEMA.md) for the full contract with copy ready examples, and
+[ADDING_A_WIDGET.md](ADDING_A_WIDGET.md) for the three step recipe to add your own
+widget.
+
+## What you get
+
+- **Open widget registry.** One call connects the backend `type` string, its payload
+  model and its SwiftUI view. Adding a widget never touches framework code.
+- **Backend controlled chrome.** Margins, padding, corner radii, backgrounds,
+  gradients, borders and widths come from the JSON and are applied by one layout
+  modifier, so widgets never style their own containers.
+- **Pages that refuse to die.** Unknown types and malformed payloads are contained,
+  bad array elements are dropped rather than fatal, and every problem is recorded in
+  diagnostics with an exact key path.
+- **Actions as data.** Taps, long presses and change events carry declarative actions
+  (`toast`, `dismiss`, `refresh_page`, `open_bottom_sheet`, `api`, or anything you
+  define) routed through an extensible handler chain. Deeplinks stay yours.
+- **Accessible by default.** A backend declared tap is announced as a button with a
+  real activation action, images carry `alt`, and backend font sizes scale with
+  Dynamic Type.
+- **Impressions as a seam.** Widgets carry an opaque `tracking` object. Implement
+  `FlowTrackingSink` and it arrives, dwell debounced, with your schema untouched.
+
 ## Modules
 
 | Module | What it holds |
@@ -122,28 +158,31 @@ step recipe to add your own widget.
 | `FlowRender` | SwiftUI: registry, page and sheet renderers, layout modifier, atoms, action dispatch, theming, debug console. |
 | `FlowWidgets` | Eight starter widgets, each one a worked example. |
 
-Import `FlowUI` for everything, or `FlowCore` alone for tooling and tests.
-
 ## The demo app
 
-`Examples/FlowDemo` is the living catalog: fixture driven pages for every layout,
-pagination, sheets and api mutations, a JSON playground that renders anything you
-paste, remote mode for serving JSON from a local http server with no rebuild, and
-network simulation for exercising shimmer, error and empty states. The floating
-debug console shows decode diagnostics with exact key paths, the action log and a
-layout inspector.
+`Examples/FlowDemo` is the living catalog, and every clip above was recorded from
+it: fixture driven pages for each layout, pagination, sheets and api mutations, the
+JSON playground, remote mode for serving JSON from a local http server with no
+rebuild, and network simulation for exercising shimmer, error and empty states. The
+floating debug console shows decode diagnostics with exact key paths, the action log
+and a layout inspector.
 
 ## Testing
 
 ```
 swift test
+swiftlint --strict
 ```
 
 `FlowCore` is UI free and covered by fixture based decode tests; `FlowWidgets` has
-its own suite for the starter payloads. The package builds clean in the Swift 6
-language mode:
+its own suite for the starter payloads.
 
-```
-swift build
-swiftlint --strict
-```
+## Contributing
+
+Conventions, the four gates a pull request has to pass, and how to add a widget are
+in [CONTRIBUTING.md](CONTRIBUTING.md). Changes are listed in
+[CHANGELOG.md](CHANGELOG.md).
+
+## License
+
+MIT. See [LICENSE](LICENSE).

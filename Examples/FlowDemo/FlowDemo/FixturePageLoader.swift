@@ -61,7 +61,7 @@ struct FixturePageLoader: PageLoader {
                       "image": { "url": "https://picsum.photos/id/9/144", "aspect_ratio": 1, "corner_radius": 10 },
                       "title": { "text": "AirPods Pro 2", "font": { "size": 16, "weight": "semibold" } },
                       "subtitle": { "text": "Now in your favourites", "color": "#B7791F" },
-                      "trailing_icon": { "symbol": "heart.fill", "size": 16, "color": "#4F46E5" }
+                      "trailing_icon": { "symbol": "heart.fill", "size": 16, "color": "#4F8CFF" }
                     }
                   }
                 }

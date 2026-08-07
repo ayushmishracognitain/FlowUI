@@ -42,7 +42,7 @@ public struct FlowTag: View {
     HStack(spacing: 8) {
         FlowTag(TagData(
             text: TextData(text: "BESTSELLER", color: ColorData(hex: "#FFFFFF")),
-            backgroundColor: ColorData(hex: "#4F46E5")
+            backgroundColor: ColorData(hex: "#4F8CFF")
         ))
         FlowTag(TagData(
             text: TextData(text: "4.2", color: ColorData(hex: "#15803D")),

@@ -118,7 +118,7 @@ public extension View {
                 padding: EdgeInsetsData(top: 16, left: 16, right: 16, bottom: 16),
                 cornerRadius: CornerRadiusData(uniform: 14),
                 background: ColorData(hex: "#FFF3F4"),
-                border: BorderData(width: 1, color: ColorData(hex: "#4F46E5")),
+                border: BorderData(width: 1, color: ColorData(hex: "#4F8CFF")),
                 width: .fill
             ))
         Text("Gradient chip")

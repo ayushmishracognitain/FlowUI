@@ -104,7 +104,7 @@ These small shapes appear inside widget payloads everywhere.
 | Atom | Shape | Notes |
 | --- | --- | --- |
 | TextData | `"Hello"` or `{ "text": "Hello", "font": FontData, "color": ColorData, "alignment": "leading\|center\|trailing", "max_lines": 2, "is_markdown": true }` | Bare string shorthand accepted |
-| ColorData | `"#4F46E5"` or `{ "hex": "#4F46E5", "dark_hex": "#FF6B6B", "token": "surface.primary", "alpha": 0.8 }` | `token` wins when the host has a design system; 8 digit hex is alpha first |
+| ColorData | `"#4F8CFF"` or `{ "hex": "#4F8CFF", "dark_hex": "#FF6B6B", "token": "surface.primary", "alpha": 0.8 }` | `token` wins when the host has a design system; 8 digit hex is alpha first |
 | FontData | `{ "size": 16, "weight": "semibold", "token": "title.large" }` | Weights: regular, medium, semibold, bold, heavy, light |
 | ImageData | `"https://..."` or `{ "url": "https://...", "aspect_ratio": 2.2, "scale_mode": "fill\|fit", "corner_radius": 12, "placeholder_color": ColorData, "shimmer": true, "alt": "AirPods in a case" }` | `aspect_ratio` reserves the shape before loading. `alt` is read by VoiceOver; an image without one is treated as decorative and hidden |
 | IconData | `"star.fill"` or `{ "symbol": "star.fill", "size": 14, "color": ColorData, "action": ActionData }` | SF Symbol names |

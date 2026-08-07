@@ -46,7 +46,7 @@ private struct DashedLine: Shape {
         FlowSeparator()
         FlowSeparator(SeparatorData(style: "dashed", color: ColorData(hex: "#B5B5B5"), thickness: 1))
         FlowSeparator(SeparatorData(
-            color: ColorData(hex: "#4F46E5"),
+            color: ColorData(hex: "#4F8CFF"),
             thickness: 3,
             insets: EdgeInsetsData(left: 40, right: 40)
         ))

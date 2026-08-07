@@ -141,7 +141,7 @@ enum PlaygroundTemplates {
             "buttons": [
               {
                 "title": { "text": "Primary", "color": "#FFFFFF" },
-                "bg_color": "#4F46E5",
+                "bg_color": "#4F8CFF",
                 "full_width": true,
                 "action": { "type": "toast", "message": "Primary" }
               },
@@ -162,7 +162,7 @@ enum PlaygroundTemplates {
             "tags": [
               {
                 "text": { "text": "One", "color": "#FFFFFF" },
-                "bg_color": "#4F46E5",
+                "bg_color": "#4F8CFF",
                 "corner_radius": 14
               },
               { "text": "Two", "corner_radius": 14 },

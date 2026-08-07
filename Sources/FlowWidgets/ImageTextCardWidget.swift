@@ -124,7 +124,7 @@ public struct ImageTextCardWidget: WidgetView, WidgetSkeletonProviding {
             subtitle: TextData(text: "Active noise cancellation", color: ColorData(hex: "#767676")),
             tags: [TagData(
                 text: TextData(text: "BESTSELLER", color: ColorData(hex: "#FFFFFF")),
-                backgroundColor: ColorData(hex: "#4F46E5")
+                backgroundColor: ColorData(hex: "#4F8CFF")
             )],
             trailingIcon: IconData(symbol: "chevron.right", size: 13, color: ColorData(hex: "#B5B5B5"))
         ),
