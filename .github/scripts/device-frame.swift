@@ -9,8 +9,8 @@
 //  Usage:
 //    swift .github/scripts/device-frame.swift <screenshot.png> <frame.png> <out.png> [scale]
 //
-//  The geometry is not guessed. It is the same set of constants the site renders
-//  with, in docs-site/src/renderer/DeviceFrames.tsx:
+//  The geometry is not guessed. It is the same set of constants the docs site
+//  renders with, in DeviceFrames.tsx over in the flow-ui-doc-website repo:
 //
 //    SCREEN_INSET          left/right 6.67%, top/bottom 3.3% of the frame
 //    SCREEN_RADIUS         6.8% of screen height

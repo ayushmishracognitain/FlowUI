@@ -1,7 +1,6 @@
 excluded:
   - .build
   - .swiftpm
-  - docs-site
 
 opt_in_rules:
   - empty_count
