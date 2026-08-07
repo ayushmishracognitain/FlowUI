@@ -4,13 +4,19 @@ import FlowCore
 /// Renders a `TextData` atom: font, color, alignment, line limit and optional Markdown.
 public struct FlowText: View {
     private let data: TextData
+    private let stretches: Bool
     @Environment(\.flowTheme) private var theme
     // Read so the body re-evaluates when the user changes their text size, which
     // is what lets a backend supplied point size actually scale.
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    public init(_ data: TextData) {
+    /// - Parameter stretches: whether the text claims the full available width.
+    ///   True by default, which is what a block of copy in a vertical section
+    ///   wants. Pass `false` inside an `HStack`, where the text should take only
+    ///   the width it needs and leave the rest to its siblings.
+    public init(_ data: TextData, stretches: Bool = true) {
         self.data = data
+        self.stretches = stretches
     }
 
     public var body: some View {
@@ -19,7 +25,7 @@ public struct FlowText: View {
             .foregroundStyle(theme.color(data.color, fallback: theme.defaults.textColor))
             .multilineTextAlignment(data.textAlignment)
             .lineLimit(lineLimit)
-            .frame(maxWidth: .infinity, alignment: data.frameAlignment)
+            .flowStretched(stretches, alignment: data.frameAlignment)
     }
 
     private var textView: Text {
@@ -36,6 +42,17 @@ public struct FlowText: View {
     private var lineLimit: Int? {
         guard let maxLines = data.maxLines, maxLines > 0 else { return nil }
         return maxLines
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func flowStretched(_ stretches: Bool, alignment: Alignment) -> some View {
+        if stretches {
+            frame(maxWidth: .infinity, alignment: alignment)
+        } else {
+            self
+        }
     }
 }
 

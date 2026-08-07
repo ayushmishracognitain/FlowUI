@@ -51,6 +51,17 @@ public struct StepperRowContent: WidgetContent, Hashable {
             initial: try container.decodeIfPresent(Int.self, forKey: .initial)
         )
     }
+
+    // Named accessors, because the stored `min` and `max` shadow Swift's own
+    // `min` and `max` functions everywhere inside this type.
+    var lowerBound: Int { min ?? 0 }
+    var upperBound: Int { max ?? Int.max }
+}
+
+private extension Int {
+    func clamped(to range: ClosedRange<Int>) -> Int {
+        Swift.min(Swift.max(self, range.lowerBound), range.upperBound)
+    }
 }
 
 public struct StepperRowWidget: WidgetView {
@@ -82,21 +93,32 @@ public struct StepperRowWidget: WidgetView {
 
     private var stepper: some View {
         HStack(spacing: 0) {
-            stepButton(symbol: "minus", enabled: count.wrappedValue > (content.min ?? 0)) {
+            stepButton(symbol: "minus", label: "Decrease", enabled: count.wrappedValue > content.lowerBound) {
                 update(count.wrappedValue - 1)
             }
             Text("\(count.wrappedValue)")
                 .font(.subheadline.weight(.semibold))
                 .frame(minWidth: 32)
                 .monospacedDigit()
-            stepButton(symbol: "plus", enabled: count.wrappedValue < (content.max ?? Int.max)) {
+                .accessibilityHidden(true)
+            stepButton(symbol: "plus", label: "Increase", enabled: count.wrappedValue < content.upperBound) {
                 update(count.wrappedValue + 1)
             }
         }
         .background(theme.defaults.surfaceColor, in: RoundedRectangle(cornerRadius: 8))
+        // Announced as one adjustable control rather than two unlabelled glyphs
+        // with a loose number between them.
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(content.title.text))
+        .accessibilityValue(Text("\(count.wrappedValue)"))
     }
 
-    private func stepButton(symbol: String, enabled: Bool, action: @escaping () -> Void) -> some View {
+    private func stepButton(
+        symbol: String,
+        label: String,
+        enabled: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
                 .font(.footnote.weight(.bold))
@@ -105,10 +127,11 @@ public struct StepperRowWidget: WidgetView {
         .buttonStyle(.plain)
         .foregroundStyle(enabled ? theme.defaults.accentColor : .secondary)
         .disabled(!enabled)
+        .accessibilityLabel(Text(label))
     }
 
     private func update(_ newValue: Int) {
-        count.wrappedValue = newValue
+        count.wrappedValue = newValue.clamped(to: content.lowerBound...content.upperBound)
         context.dispatch(event: "change")
     }
 }

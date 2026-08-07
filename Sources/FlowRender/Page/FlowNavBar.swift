@@ -37,7 +37,10 @@ public struct FlowNavBar: View {
             HStack(spacing: 8) {
                 ForEach(Array((nav.rightButtons ?? []).enumerated()), id: \.offset) { _, button in
                     FlowButton(button) {
-                        relay(button.action ?? ActionData(type: "none"), from: nil)
+                        // A button with no action does nothing. Dispatching a
+                        // synthetic "none" only put an unhandled entry in the log.
+                        guard let action = button.action else { return }
+                        relay(action, from: nil)
                     }
                 }
             }

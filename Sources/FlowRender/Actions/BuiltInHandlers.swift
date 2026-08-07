@@ -11,7 +11,14 @@ public struct ToastActionHandler: ActionHandler {
     public init() {}
 
     public func handle(_ action: ActionData, context: ActionContext) async -> Bool {
-        guard action.type == "toast", let payload = try? action.payload(Payload.self) else { return false }
+        guard action.type == "toast" else { return false }
+        // Claim the action even when the payload is unusable. Returning false here
+        // let a malformed toast fall through the whole chain and be logged as
+        // "unhandled", which points at routing rather than at the bad payload.
+        guard let payload = try? action.payload(Payload.self) else {
+            assertionFailure("A 'toast' action needs a 'message' string, got: \(action.raw)")
+            return true
+        }
         context.presenter?.show(ToastData(message: payload.message, duration: payload.duration ?? 2.5))
         return true
     }

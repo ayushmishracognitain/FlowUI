@@ -37,6 +37,7 @@ public struct WidgetRowView: View {
                 view
                     .widgetLayout(widget.layout)
                     .modifier(EnvelopeGestures(widget: widget, context: context))
+                    .modifier(ImpressionReporting(widget: widget))
                     .modifier(LayoutInspection(widget: widget))
             }
         }

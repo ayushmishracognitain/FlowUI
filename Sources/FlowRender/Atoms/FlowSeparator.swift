@@ -19,9 +19,11 @@ public struct FlowSeparator: View {
             case "space":
                 Color.clear.frame(height: thickness)
             case "dashed":
+                // The stroke is centred on the path, so a frame of exactly
+                // `thickness` clipped half of it away.
                 DashedLine()
                     .stroke(color, style: StrokeStyle(lineWidth: thickness, dash: [4, 4]))
-                    .frame(height: thickness)
+                    .frame(height: thickness * 2)
             default:
                 color.frame(height: thickness)
             }

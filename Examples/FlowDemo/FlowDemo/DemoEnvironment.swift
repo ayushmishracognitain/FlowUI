@@ -1,5 +1,6 @@
 import SwiftUI
 import Observation
+import OSLog
 import FlowCore
 import FlowRender
 import FlowWidgets
@@ -68,6 +69,42 @@ struct DemoDeeplinkHandler: ActionHandler {
             context.presenter?.show(ToastData(message: "Would navigate to \(payload.url)"))
         }
         return true
+    }
+}
+
+/// Shows where a real app would forward impressions to its analytics vendor.
+/// The framework never interprets `tracking`; it just hands the blob over once the
+/// widget has held the screen long enough to count as seen.
+struct DemoTrackingSink: FlowTrackingSink {
+    private static let logger = Logger(subsystem: "com.flowui.FlowDemo", category: "impressions")
+
+    func widgetDidAppear(_ impression: FlowImpression) {
+        Self.logger.info(
+            """
+            flow.impression type=\(impression.widgetType, privacy: .public) \
+            id=\(impression.widgetID, privacy: .public)
+            """
+        )
+        DemoImpressionLog.shared.record(impression)
+    }
+}
+
+/// Collects the impressions the sink receives so the demo can show them on screen.
+/// A real app would forward them to its analytics vendor instead.
+@Observable
+@MainActor
+final class DemoImpressionLog {
+    static let shared = DemoImpressionLog()
+
+    private(set) var seen: [FlowImpression] = []
+
+    func record(_ impression: FlowImpression) {
+        seen.append(impression)
+    }
+
+    var summary: String {
+        guard let last = seen.last else { return "no impressions yet" }
+        return "\(seen.count) seen, last \(last.widgetID)"
     }
 }
 

@@ -7,14 +7,40 @@
         {
           "type": "tag_rail",
           "id": "filters",
-          "layout": { "padding": { "top": 8, "left": 16, "right": 16, "bottom": 8 } },
+          "layout": {
+            "padding": {
+              "top": 8,
+              "left": 16,
+              "right": 16,
+              "bottom": 8
+            }
+          },
           "data": {
             "tags": [
-              { "text": { "text": "All", "color": "#FFFFFF" }, "bg_color": "#E23744", "corner_radius": 14 },
-              { "text": "Audio", "corner_radius": 14 },
-              { "text": "Wearables", "corner_radius": 14 },
-              { "text": "Laptops", "corner_radius": 14 },
-              { "text": "Deals", "corner_radius": 14 }
+              {
+                "text": {
+                  "text": "All",
+                  "color": "#FFFFFF"
+                },
+                "bg_color": "#E23744",
+                "corner_radius": 14
+              },
+              {
+                "text": "Audio",
+                "corner_radius": 14
+              },
+              {
+                "text": "Wearables",
+                "corner_radius": 14
+              },
+              {
+                "text": "Laptops",
+                "corner_radius": 14
+              },
+              {
+                "text": "Deals",
+                "corner_radius": 14
+              }
             ]
           }
         }
@@ -23,104 +49,424 @@
     "sections": [
       {
         "id": "sec_banners",
-        "layout": { "arrangement": "carousel", "item_spacing": 12, "insets": { "top": 12, "left": 16, "right": 16 } },
+        "layout": {
+          "arrangement": "carousel",
+          "item_spacing": 12,
+          "insets": {
+            "top": 12,
+            "left": 16,
+            "right": 16
+          }
+        },
         "widgets": [
           {
             "type": "banner",
             "id": "banner_1",
-            "layout": { "width": 0.85 },
-            "data": {
-              "image": { "url": "https://picsum.photos/id/2/800/360", "aspect_ratio": 2.2, "corner_radius": 14, "shimmer": true },
-              "title": { "text": "50% off first order", "font": { "size": 22, "weight": "bold" }, "color": "#FFFFFF" },
-              "subtitle": { "text": "Use code WELCOME", "color": "#CCFFFFFF" }
+            "layout": {
+              "width": 0.85
             },
-            "actions": { "tap": { "type": "deeplink", "url": "flowdemo://offers/welcome" } }
+            "data": {
+              "image": {
+                "url": "https://picsum.photos/id/2/800/360",
+                "aspect_ratio": 2.2,
+                "corner_radius": 14,
+                "shimmer": true
+              },
+              "title": {
+                "text": "50% off first order",
+                "font": {
+                  "size": 22,
+                  "weight": "bold"
+                },
+                "color": "#FFFFFF"
+              },
+              "subtitle": {
+                "text": "Use code WELCOME",
+                "color": "#CCFFFFFF"
+              }
+            },
+            "actions": {
+              "tap": {
+                "type": "deeplink",
+                "url": "flowdemo://offers/welcome"
+              }
+            },
+            "tracking": {
+              "impression_id": "imp_banner_1",
+              "surface": "home_feed",
+              "section": "sec_banners"
+            }
           },
           {
             "type": "banner",
             "id": "banner_2",
-            "layout": { "width": 0.85 },
-            "data": {
-              "image": { "url": "https://picsum.photos/id/60/800/360", "aspect_ratio": 2.2, "corner_radius": 14, "shimmer": true },
-              "title": { "text": "Free delivery week", "font": { "size": 22, "weight": "bold" }, "color": "#FFFFFF" }
+            "layout": {
+              "width": 0.85
             },
-            "actions": { "tap": { "type": "toast", "message": "Banner two tapped" } }
+            "data": {
+              "image": {
+                "url": "https://picsum.photos/id/60/800/360",
+                "aspect_ratio": 2.2,
+                "corner_radius": 14,
+                "shimmer": true
+              },
+              "title": {
+                "text": "Free delivery week",
+                "font": {
+                  "size": 22,
+                  "weight": "bold"
+                },
+                "color": "#FFFFFF"
+              }
+            },
+            "actions": {
+              "tap": {
+                "type": "toast",
+                "message": "Banner two tapped"
+              }
+            }
           }
         ]
       },
       {
         "id": "sec_popular",
-        "layout": { "arrangement": "vertical", "item_spacing": 0, "insets": { "top": 20 } },
+        "layout": {
+          "arrangement": "vertical",
+          "item_spacing": 0,
+          "insets": {
+            "top": 20
+          }
+        },
         "header": {
           "type": "title_block",
           "id": "popular_title",
-          "layout": { "padding": { "top": 4, "left": 16, "right": 16, "bottom": 8 }, "background": { "hex": "#FFFFFF", "dark_hex": "#000000" } },
+          "layout": {
+            "padding": {
+              "top": 4,
+              "left": 16,
+              "right": 16,
+              "bottom": 8
+            },
+            "background": {
+              "hex": "#FFFFFF",
+              "dark_hex": "#000000"
+            }
+          },
           "data": {
-            "title": { "text": "Popular this week", "font": { "size": 20, "weight": "bold" } },
-            "subtitle": { "text": "Sticky section header, scroll me", "color": "#767676" }
+            "title": {
+              "text": "Popular this week",
+              "font": {
+                "size": 20,
+                "weight": "bold"
+              }
+            },
+            "subtitle": {
+              "text": "Sticky section header, scroll me",
+              "color": "#767676"
+            }
           }
         },
         "widgets": [
           {
             "type": "image_text_card",
             "id": "product_1",
-            "layout": { "margin": { "top": 4, "left": 16, "right": 16, "bottom": 4 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
+            "layout": {
+              "margin": {
+                "top": 4,
+                "left": 16,
+                "right": 16,
+                "bottom": 4
+              },
+              "padding": {
+                "top": 10,
+                "left": 10,
+                "right": 10,
+                "bottom": 10
+              },
+              "corner_radius": 12,
+              "background": {
+                "hex": "#F8F8F8",
+                "dark_hex": "#1C1C1E"
+              }
+            },
             "data": {
-              "image": { "url": "https://picsum.photos/id/9/144", "aspect_ratio": 1, "corner_radius": 10 },
-              "title": { "text": "AirPods Pro 2", "font": { "size": 16, "weight": "semibold" } },
-              "subtitle": { "text": "Active noise cancellation", "color": "#767676" },
-              "tags": [ { "text": { "text": "BESTSELLER", "color": "#FFFFFF", "font": { "size": 10, "weight": "bold" } }, "bg_color": "#E23744" } ],
-              "trailing_icon": { "symbol": "chevron.right", "size": 13, "color": "#B5B5B5" }
+              "image": {
+                "url": "https://picsum.photos/id/9/144",
+                "aspect_ratio": 1,
+                "corner_radius": 10
+              },
+              "title": {
+                "text": "AirPods Pro 2",
+                "font": {
+                  "size": 16,
+                  "weight": "semibold"
+                }
+              },
+              "subtitle": {
+                "text": "Active noise cancellation",
+                "color": "#767676"
+              },
+              "tags": [
+                {
+                  "text": {
+                    "text": "BESTSELLER",
+                    "color": "#FFFFFF",
+                    "font": {
+                      "size": 10,
+                      "weight": "bold"
+                    }
+                  },
+                  "bg_color": "#E23744"
+                }
+              ],
+              "trailing_icon": {
+                "symbol": "chevron.right",
+                "size": 13,
+                "color": "#B5B5B5"
+              }
             },
             "actions": {
               "tap": {
                 "type": "open_bottom_sheet",
                 "sheet": {
                   "id": "product_1_sheet",
-                  "config": { "detents": ["medium", "large"], "grabber": true, "corner_radius": 24 },
+                  "config": {
+                    "detents": [
+                      "medium",
+                      "large"
+                    ],
+                    "grabber": true,
+                    "corner_radius": 24
+                  },
                   "header": {
                     "widgets": [
-                      { "type": "title_block", "id": "sheet_title", "layout": { "padding": { "top": 20, "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "AirPods Pro 2", "font": { "size": 20, "weight": "bold" } }, "subtitle": { "text": "Choose your configuration", "color": "#767676" } } }
+                      {
+                        "type": "title_block",
+                        "id": "sheet_title",
+                        "layout": {
+                          "padding": {
+                            "top": 20,
+                            "left": 16,
+                            "right": 16,
+                            "bottom": 8
+                          }
+                        },
+                        "data": {
+                          "title": {
+                            "text": "AirPods Pro 2",
+                            "font": {
+                              "size": 20,
+                              "weight": "bold"
+                            }
+                          },
+                          "subtitle": {
+                            "text": "Choose your configuration",
+                            "color": "#767676"
+                          }
+                        }
+                      }
                     ]
                   },
                   "sections": [
                     {
                       "id": "sheet_body",
                       "widgets": [
-                        { "type": "banner", "id": "sheet_img", "layout": { "margin": { "top": 8, "left": 16, "right": 16 } }, "data": { "image": { "url": "https://picsum.photos/id/9/700/380", "aspect_ratio": 2, "corner_radius": 12, "shimmer": true } } },
-                        { "type": "separator", "id": "sheet_sep", "layout": { "margin": { "top": 12, "bottom": 4 } }, "data": { "insets": { "left": 16, "right": 16 } } },
-                        { "type": "stepper_row", "id": "sheet_qty", "layout": { "padding": { "top": 8, "left": 16, "right": 16, "bottom": 8 } }, "data": { "title": { "text": "Quantity", "font": { "size": 16, "weight": "medium" } }, "min": 1, "max": 5, "initial": 1 }, "actions": { "change": { "type": "api", "endpoint": "cart/update" } } }
+                        {
+                          "type": "banner",
+                          "id": "sheet_img",
+                          "layout": {
+                            "margin": {
+                              "top": 8,
+                              "left": 16,
+                              "right": 16
+                            }
+                          },
+                          "data": {
+                            "image": {
+                              "url": "https://picsum.photos/id/9/700/380",
+                              "aspect_ratio": 2,
+                              "corner_radius": 12,
+                              "shimmer": true
+                            }
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "id": "sheet_sep",
+                          "layout": {
+                            "margin": {
+                              "top": 12,
+                              "bottom": 4
+                            }
+                          },
+                          "data": {
+                            "insets": {
+                              "left": 16,
+                              "right": 16
+                            }
+                          }
+                        },
+                        {
+                          "type": "stepper_row",
+                          "id": "sheet_qty",
+                          "layout": {
+                            "padding": {
+                              "top": 8,
+                              "left": 16,
+                              "right": 16,
+                              "bottom": 8
+                            }
+                          },
+                          "data": {
+                            "title": {
+                              "text": "Quantity",
+                              "font": {
+                                "size": 16,
+                                "weight": "medium"
+                              }
+                            },
+                            "min": 1,
+                            "max": 5,
+                            "initial": 1
+                          },
+                          "actions": {
+                            "change": {
+                              "type": "api",
+                              "endpoint": "cart/update"
+                            }
+                          }
+                        }
                       ]
                     }
                   ],
                   "footer": {
                     "widgets": [
-                      { "type": "button_row", "id": "sheet_cta", "layout": { "padding": { "top": 12, "left": 16, "right": 16, "bottom": 12 } }, "data": { "buttons": [ { "title": { "text": "Add to cart", "color": "#FFFFFF" }, "bg_color": "#E23744", "full_width": true, "action": { "type": "toast", "message": "Added to cart" } } ] } }
+                      {
+                        "type": "button_row",
+                        "id": "sheet_cta",
+                        "layout": {
+                          "padding": {
+                            "top": 12,
+                            "left": 16,
+                            "right": 16,
+                            "bottom": 12
+                          }
+                        },
+                        "data": {
+                          "buttons": [
+                            {
+                              "title": {
+                                "text": "Add to cart",
+                                "color": "#FFFFFF"
+                              },
+                              "bg_color": "#E23744",
+                              "full_width": true,
+                              "action": {
+                                "type": "toast",
+                                "message": "Added to cart"
+                              }
+                            }
+                          ]
+                        }
+                      }
                     ]
                   }
                 }
               }
+            },
+            "tracking": {
+              "impression_id": "imp_product_1",
+              "surface": "home_feed",
+              "section": "sec_popular"
             }
           },
           {
             "type": "image_text_card",
             "id": "product_2",
-            "layout": { "margin": { "top": 4, "left": 16, "right": 16, "bottom": 4 }, "padding": { "top": 10, "left": 10, "right": 10, "bottom": 10 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
-            "data": {
-              "image": { "url": "https://picsum.photos/id/8/144", "aspect_ratio": 1, "corner_radius": 10 },
-              "title": { "text": "Watch Series 10", "font": { "size": 16, "weight": "semibold" } },
-              "subtitle": { "text": "GPS, 46 mm", "color": "#767676" },
-              "tags": [ { "text": { "text": "4.4", "color": "#267E3E" }, "border_color": "#267E3E", "icon": { "symbol": "star.fill", "size": 9, "color": "#267E3E" } } ]
+            "layout": {
+              "margin": {
+                "top": 4,
+                "left": 16,
+                "right": 16,
+                "bottom": 4
+              },
+              "padding": {
+                "top": 10,
+                "left": 10,
+                "right": 10,
+                "bottom": 10
+              },
+              "corner_radius": 12,
+              "background": {
+                "hex": "#F8F8F8",
+                "dark_hex": "#1C1C1E"
+              }
             },
-            "actions": { "tap": { "type": "toast", "message": "Watch Series 10 tapped" } }
+            "data": {
+              "image": {
+                "url": "https://picsum.photos/id/8/144",
+                "aspect_ratio": 1,
+                "corner_radius": 10
+              },
+              "title": {
+                "text": "Watch Series 10",
+                "font": {
+                  "size": 16,
+                  "weight": "semibold"
+                }
+              },
+              "subtitle": {
+                "text": "GPS, 46 mm",
+                "color": "#767676"
+              },
+              "tags": [
+                {
+                  "text": {
+                    "text": "4.4",
+                    "color": "#267E3E"
+                  },
+                  "border_color": "#267E3E",
+                  "icon": {
+                    "symbol": "star.fill",
+                    "size": 9,
+                    "color": "#267E3E"
+                  }
+                }
+              ]
+            },
+            "actions": {
+              "tap": {
+                "type": "toast",
+                "message": "Watch Series 10 tapped"
+              }
+            },
+            "tracking": {
+              "impression_id": "imp_product_2",
+              "surface": "home_feed",
+              "section": "sec_popular"
+            }
           },
           {
             "type": "button_row",
             "id": "favourite_cta",
-            "layout": { "margin": { "top": 8, "left": 16, "right": 16 } },
+            "layout": {
+              "margin": {
+                "top": 8,
+                "left": 16,
+                "right": 16
+              }
+            },
             "data": {
               "buttons": [
-                { "title": "Mark today's pick as favourite", "style": "outline", "action": { "type": "api", "endpoint": "favourite", "widget_id": "product_1" } }
+                {
+                  "title": "Mark today's pick as favourite",
+                  "style": "outline",
+                  "action": {
+                    "type": "api",
+                    "endpoint": "favourite",
+                    "widget_id": "product_1"
+                  }
+                }
               ]
             }
           }
@@ -128,41 +474,180 @@
       },
       {
         "id": "sec_custom",
-        "layout": { "arrangement": "vertical", "insets": { "top": 20 } },
+        "layout": {
+          "arrangement": "vertical",
+          "insets": {
+            "top": 20
+          }
+        },
         "header": {
           "type": "title_block",
           "id": "custom_title",
-          "layout": { "padding": { "top": 4, "left": 16, "right": 16, "bottom": 8 }, "background": { "hex": "#FFFFFF", "dark_hex": "#000000" } },
-          "data": { "title": { "text": "A host defined widget", "font": { "size": 20, "weight": "bold" } }, "subtitle": { "text": "order_card is registered by the demo app, not the framework", "color": "#767676" } }
+          "layout": {
+            "padding": {
+              "top": 4,
+              "left": 16,
+              "right": 16,
+              "bottom": 8
+            },
+            "background": {
+              "hex": "#FFFFFF",
+              "dark_hex": "#000000"
+            }
+          },
+          "data": {
+            "title": {
+              "text": "A host defined widget",
+              "font": {
+                "size": 20,
+                "weight": "bold"
+              }
+            },
+            "subtitle": {
+              "text": "order_card is registered by the demo app, not the framework",
+              "color": "#767676"
+            }
+          }
         },
         "widgets": [
           {
             "type": "order_card",
             "id": "order_1042",
-            "layout": { "margin": { "left": 16, "right": 16 }, "padding": { "top": 14, "left": 14, "right": 14, "bottom": 14 }, "corner_radius": 14, "background": { "hex": "#FFFFFF", "dark_hex": "#1C1C1E" }, "border": { "width": 1, "color": { "hex": "#EAEAEA", "dark_hex": "#333333" } } },
-            "data": {
-              "order_number": { "text": "Order #1042", "font": { "size": 16, "weight": "semibold" } },
-              "status": { "text": { "text": "SHIPPED", "color": "#B7791F", "font": { "size": 10, "weight": "bold" } }, "bg_color": "#FEF3C7" },
-              "items": [ "2 x AirPods Pro 2", "1 x USB C Cable" ],
-              "total": { "text": "Total 1,258", "font": { "size": 14, "weight": "semibold" } }
+            "layout": {
+              "margin": {
+                "left": 16,
+                "right": 16
+              },
+              "padding": {
+                "top": 14,
+                "left": 14,
+                "right": 14,
+                "bottom": 14
+              },
+              "corner_radius": 14,
+              "background": {
+                "hex": "#FFFFFF",
+                "dark_hex": "#1C1C1E"
+              },
+              "border": {
+                "width": 1,
+                "color": {
+                  "hex": "#EAEAEA",
+                  "dark_hex": "#333333"
+                }
+              }
             },
-            "actions": { "tap": { "type": "deeplink", "url": "flowdemo://orders/1042" } }
+            "data": {
+              "order_number": {
+                "text": "Order #1042",
+                "font": {
+                  "size": 16,
+                  "weight": "semibold"
+                }
+              },
+              "status": {
+                "text": {
+                  "text": "SHIPPED",
+                  "color": "#B7791F",
+                  "font": {
+                    "size": 10,
+                    "weight": "bold"
+                  }
+                },
+                "bg_color": "#FEF3C7"
+              },
+              "items": [
+                "2 x AirPods Pro 2",
+                "1 x USB C Cable"
+              ],
+              "total": {
+                "text": "Total 1,258",
+                "font": {
+                  "size": 14,
+                  "weight": "semibold"
+                }
+              }
+            },
+            "actions": {
+              "tap": {
+                "type": "deeplink",
+                "url": "flowdemo://orders/1042"
+              }
+            }
           }
         ]
       },
       {
         "id": "sec_faq",
-        "layout": { "arrangement": "vertical", "insets": { "top": 20, "bottom": 24 } },
+        "layout": {
+          "arrangement": "vertical",
+          "insets": {
+            "top": 20,
+            "bottom": 24
+          }
+        },
         "widgets": [
           {
             "type": "accordion",
             "id": "faq_refunds",
-            "layout": { "margin": { "left": 16, "right": 16 }, "padding": { "top": 14, "left": 14, "right": 14, "bottom": 14 }, "corner_radius": 12, "background": { "hex": "#F8F8F8", "dark_hex": "#1C1C1E" } },
+            "layout": {
+              "margin": {
+                "left": 16,
+                "right": 16
+              },
+              "padding": {
+                "top": 14,
+                "left": 14,
+                "right": 14,
+                "bottom": 14
+              },
+              "corner_radius": 12,
+              "background": {
+                "hex": "#F8F8F8",
+                "dark_hex": "#1C1C1E"
+              }
+            },
             "data": {
-              "header": { "text": "How do refunds work?", "font": { "size": 16, "weight": "semibold" } },
+              "header": {
+                "text": "How do refunds work?",
+                "font": {
+                  "size": 16,
+                  "weight": "semibold"
+                }
+              },
               "items": [
-                { "type": "image_text_card", "id": "faq_a1", "data": { "title": { "text": "Refunds land in 5 to 7 business days", "font": { "size": 14 } }, "subtitle": { "text": "Straight back to the original payment method", "color": "#767676" } } },
-                { "type": "button_row", "id": "faq_cta", "data": { "buttons": [ { "title": "Contact support", "style": "plain", "action": { "type": "toast", "message": "Support chat would open" } } ] } }
+                {
+                  "type": "image_text_card",
+                  "id": "faq_a1",
+                  "data": {
+                    "title": {
+                      "text": "Refunds land in 5 to 7 business days",
+                      "font": {
+                        "size": 14
+                      }
+                    },
+                    "subtitle": {
+                      "text": "Straight back to the original payment method",
+                      "color": "#767676"
+                    }
+                  }
+                },
+                {
+                  "type": "button_row",
+                  "id": "faq_cta",
+                  "data": {
+                    "buttons": [
+                      {
+                        "title": "Contact support",
+                        "style": "plain",
+                        "action": {
+                          "type": "toast",
+                          "message": "Support chat would open"
+                        }
+                      }
+                    ]
+                  }
+                }
               ]
             }
           }
@@ -175,11 +660,35 @@
         {
           "type": "button_row",
           "id": "cart_cta",
-          "layout": { "padding": { "top": 10, "left": 16, "right": 16, "bottom": 10 } },
-          "data": { "buttons": [ { "title": { "text": "View cart", "color": "#FFFFFF" }, "bg_color": "#267E3E", "full_width": true, "action": { "type": "toast", "message": "Cart has 3 items" } } ] }
+          "layout": {
+            "padding": {
+              "top": 10,
+              "left": 16,
+              "right": 16,
+              "bottom": 10
+            }
+          },
+          "data": {
+            "buttons": [
+              {
+                "title": {
+                  "text": "View cart",
+                  "color": "#FFFFFF"
+                },
+                "bg_color": "#267E3E",
+                "full_width": true,
+                "action": {
+                  "type": "toast",
+                  "message": "Cart has 3 items"
+                }
+              }
+            ]
+          }
         }
       ]
     },
-    "refresh": { "pull_to_refresh": true }
+    "refresh": {
+      "pull_to_refresh": true
+    }
   }
 }
