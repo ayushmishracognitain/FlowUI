@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/ayushmishracognitain/FlowUI/security/advisories/new
+    about: Report privately through a draft advisory. Please do not open a public issue.
+  - name: Documentation
+    url: https://www.cognitain.in/documentation/flowui/docs/introduction/
+    about: Guides, the JSON schema reference and the playground.

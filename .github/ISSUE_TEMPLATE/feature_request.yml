@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a capability, a widget, or a schema addition
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: adding a widget to your own app never needs a framework
+        change. See ADDING_A_WIDGET.md. This form is for things the framework
+        itself would have to do.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to build, and where does Flow-UI get in the way?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you have in mind
+      description: If it changes the JSON contract, sketch the payload. Additive fields ship in a minor version; anything that breaks an existing payload waits for a major.
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried instead
+      description: Custom widget, action handler, or a workaround in your app.
+    validations:
+      required: false

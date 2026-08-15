@@ -6,7 +6,7 @@
 </picture>
 
 <!-- One source line on purpose: a line break between badges makes GitHub stack them. -->
-[![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml) [![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138.svg?style=flat)](https://swift.org) [![Platforms](https://img.shields.io/badge/iOS%2017%20%7C%20macOS%2014-4F8CFF.svg?style=flat)](https://developer.apple.com) [![SPM](https://img.shields.io/badge/SPM-compatible-4F8CFF.svg?style=flat)](https://swift.org/package-manager) [![License](https://img.shields.io/badge/license-MIT-555.svg?style=flat)](LICENSE)
+[![CI](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushmishracognitain/FlowUI/actions/workflows/ci.yml) [![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138.svg?style=flat)](https://swift.org) [![Platforms](https://img.shields.io/badge/iOS%2017%20%7C%20macOS%2014-4F8CFF.svg?style=flat)](https://developer.apple.com) [![SPM](https://img.shields.io/badge/SPM-compatible-4F8CFF.svg?style=flat)](https://swift.org/package-manager) [![License](https://img.shields.io/badge/license-MIT-4F8CFF.svg?style=flat)](LICENSE)
 
 </div>
 
@@ -176,8 +176,14 @@ its own suite for the starter payloads.
 
 ## Contributing
 
+Issues and pull requests are welcome, and you do not need permission to start. Bug
+reports are easiest with the JSON payload that reproduces the problem: the playground
+in the demo app renders anything you paste.
+
 Conventions, the four gates a pull request has to pass, and how to add a widget are
-in [CONTRIBUTING.md](CONTRIBUTING.md). Changes are listed in
+in [CONTRIBUTING.md](CONTRIBUTING.md). Participation is covered by the
+[Code of Conduct](CODE_OF_CONDUCT.md). Vulnerabilities go through
+[SECURITY.md](SECURITY.md), not a public issue. Changes are listed in
 [CHANGELOG.md](CHANGELOG.md).
 
 ## Author
@@ -186,4 +192,6 @@ Built by [Ayush Mishra](https://www.cognitain.in/ayushmetaverse).
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Flow-UI is free and open source under the MIT licence. Use it in commercial apps, fork
+it, or build on top of it. There is no paid tier and no licence key. See
+[LICENSE](LICENSE).
