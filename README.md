@@ -180,6 +180,10 @@ Conventions, the four gates a pull request has to pass, and how to add a widget 
 in [CONTRIBUTING.md](CONTRIBUTING.md). Changes are listed in
 [CHANGELOG.md](CHANGELOG.md).
 
+## Author
+
+Built by [Ayush Mishra](https://www.cognitain.in/ayushmetaverse).
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
