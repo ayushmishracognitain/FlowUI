@@ -4,9 +4,9 @@ Flow-UI follows [semantic versioning](https://semver.org). The JSON contract is 
 of the public API: additive schema changes ship in minor versions, and anything that
 would break an existing payload waits for a major.
 
-## Unreleased
+## 1.0.0 - 2026-08-16
 
-The first Flow-UI release, in final preparation. The complete schema layer with lossy
+The first Flow-UI release. The complete schema layer with lossy
 decoding and diagnostics, the SwiftUI renderer with pages, carousels, grids, sticky bars,
 bottom sheets, shimmer and skeletons, the open widget registry, the action dispatcher with
 api mutations, the theming protocol, the widget state store, and eight starter widgets.

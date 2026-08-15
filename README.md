@@ -64,8 +64,6 @@ dependencies: [
 ]
 ```
 
-The `1.0.0` tag is published with the release.
-
 | Product | Take this when |
 | --- | --- |
 | `FlowUI` | You are building an app. Schema, renderer and the starter widgets. |
