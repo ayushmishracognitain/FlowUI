@@ -1,7 +1,12 @@
 # Contributing to Flow-UI
 
+Flow-UI is free and open source under the MIT licence, and contributions are welcome.
+You do not need permission to start: open an issue, or send a pull request.
+
 Thanks for taking the time. This file covers what the project expects so a pull request
-lands without a round of avoidable review comments.
+lands without a round of avoidable review comments. The conventions below are firm, but
+they are about the code, never about you. Participation is covered by the
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Getting set up
 

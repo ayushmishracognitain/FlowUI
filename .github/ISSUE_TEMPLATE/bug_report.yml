@@ -1,0 +1,51 @@
+name: Bug report
+description: Something decodes or renders wrong
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. The JSON payload that reproduces the problem is
+        usually the whole bug report, and the Playground in the demo app renders
+        anything you paste, so it is easy to confirm.
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: JSON payload
+      description: The page, section or widget JSON that reproduces it. Trim it to the smallest thing that still fails.
+      render: json
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: What should this payload have rendered or done?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Include any diagnostics from the debug console, with the key path if you have it.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Flow-UI version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform and Xcode version
+      placeholder: "iOS 17.4 simulator, Xcode 16.2"
+    validations:
+      required: false
