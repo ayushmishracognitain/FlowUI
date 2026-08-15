@@ -70,3 +70,7 @@ New views carry their weight:
 
 Include the JSON payload that reproduces it. That is usually the whole bug report, and
 the Playground in the demo app renders anything you paste, so it is easy to confirm.
+
+## Author
+
+Flow-UI is maintained by [Ayush Mishra](https://www.cognitain.in/ayushmetaverse).
