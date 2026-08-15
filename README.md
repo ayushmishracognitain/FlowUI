@@ -10,12 +10,13 @@
 
 </div>
 
-Ship a new screen without shipping a new build. The backend describes pages,
-sections and widgets as JSON; Flow-UI decodes it, lays it out, renders it, and
-routes every interaction back to your code.
+**Server driven UI for SwiftUI.** Ship a new screen without shipping a new build.
+The backend describes pages, sections and widgets as JSON; Flow-UI decodes it, lays
+it out, renders it as native SwiftUI, and routes every interaction back to your code.
 
-No networking stack, no image library, no design system. Those are seams your app
-plugs into.
+A server driven UI (SDUI) framework for iOS 17 and later, free and MIT licensed. No
+networking stack, no image library, no design system. Those are seams your app plugs
+into.
 
 <div align="center">
   <picture>
