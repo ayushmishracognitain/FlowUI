@@ -6,6 +6,12 @@ would break an existing payload waits for a major.
 
 ## Unreleased
 
+The first Flow-UI release, in final preparation. The complete schema layer with lossy
+decoding and diagnostics, the SwiftUI renderer with pages, carousels, grids, sticky bars,
+bottom sheets, shimmer and skeletons, the open widget registry, the action dispatcher with
+api mutations, the theming protocol, the widget state store, and eight starter widgets.
+Ships with a fixture driven demo app, a JSON playground and a debug console.
+
 ### Added
 
 - `FlowTrackingSink`, the seam that delivers a widget's opaque `tracking` object to the
@@ -52,13 +58,3 @@ would break an existing payload waits for a major.
 - A dashed `FlowSeparator` being clipped to half its stroke.
 - A nav bar button with no action dispatching a junk `none` action.
 - A malformed `toast` payload falling through the whole handler chain unreported.
-
-## 1.0.0
-
-First public preview while Flow-UI is Coming Soon, not general availability.
-
-The complete schema layer with lossy decoding and diagnostics, the SwiftUI renderer with
-pages, carousels, grids, sticky bars, bottom sheets, shimmer and skeletons, the open
-widget registry, the action dispatcher with api mutations, the theming protocol, the
-widget state store, and eight starter widgets. Ships with a fixture driven demo app, a
-JSON playground and a debug console.
