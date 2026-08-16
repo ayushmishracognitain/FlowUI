@@ -23,6 +23,10 @@ let package = Package(
         // The SwiftUI rendering layer without the starter widgets.
         .library(name: "FlowRender", targets: ["FlowRender"])
     ],
+    dependencies: [
+        // Local and SPI DocC builds: `swift package generate-documentation`.
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.4.0")
+    ],
     targets: [
         .target(
             name: "FlowCore",
