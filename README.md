@@ -177,7 +177,8 @@ its own suite for the starter payloads.
 
 ## Contributing
 
-Issues and pull requests are welcome, and you do not need permission to start. Bug
+Issues and pull requests are welcome, and you do not need permission to start.
+`main` only moves through a reviewed pull request, never a direct push. Bug
 reports are easiest with the JSON payload that reproduces the problem: the playground
 in the demo app renders anything you paste.
 

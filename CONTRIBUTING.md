@@ -1,12 +1,26 @@
 # Contributing to Flow-UI
 
 Flow-UI is free and open source under the MIT licence, and contributions are welcome.
-You do not need permission to start: open an issue, or send a pull request.
+You do not need permission to start. You do need a pull request: `main` is protected
+and nobody pushes commits onto it directly.
 
 Thanks for taking the time. This file covers what the project expects so a pull request
 lands without a round of avoidable review comments. The conventions below are firm, but
 they are about the code, never about you. Participation is covered by the
 [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## How a change reaches main
+
+1. Open an issue for anything that changes the JSON contract or public API. Small
+   fixes can go straight to a pull request.
+2. Fork the repository (or push a feature branch if you already have write access).
+   Do not commit on `main`.
+3. Open a pull request against `main`. CI has to be green: build, tests, SwiftLint,
+   and the style gate.
+4. A maintainer reviews and merges. That is the only way code lands on `main`.
+
+Force pushes and branch deletion on `main` are disabled. Release tags are maintainer
+only.
 
 ## Getting set up
 
