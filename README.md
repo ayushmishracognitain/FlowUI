@@ -10,13 +10,18 @@
 
 </div>
 
-**Server driven UI for SwiftUI.** Ship a new screen without shipping a new build.
+# Flow-UI
+
+**Server driven UI for SwiftUI**, by [Cognitain](https://www.cognitain.in). Ship a new screen without shipping a new build.
 The backend describes pages, sections and widgets as JSON; Flow-UI decodes it, lays
 it out, renders it as native SwiftUI, and routes every interaction back to your code.
 
 A server driven UI (SDUI) framework for iOS 17 and later, free and MIT licensed. No
 networking stack, no image library, no design system. Those are seams your app plugs
 into.
+
+**Docs:** [cognitain.in/documentation/flowui](https://www.cognitain.in/documentation/flowui/)
+· **Playground:** [paste JSON, see the screen](https://www.cognitain.in/documentation/flowui/playground/)
 
 <div align="center">
   <picture>
@@ -190,7 +195,7 @@ in [CONTRIBUTING.md](CONTRIBUTING.md). Participation is covered by the
 
 ## Author
 
-Built by [Ayush Mishra](https://www.cognitain.in/ayushmetaverse).
+Built by [Ayush Mishra](https://www.cognitain.in/ayushmetaverse) at [Cognitain](https://www.cognitain.in).
 
 ## License
 
